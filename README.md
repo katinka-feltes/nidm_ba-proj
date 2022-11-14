@@ -1,7 +1,7 @@
-# nidm_ba-proj
-Bachelor-Project: Networking during Infectious Diseases Model (NIDM) Simulator in Julia
+# Bachelor-Project: Networking during Infectious Diseases Model (NIDM) Simulator in Julia
+_basierend auf dem in in Java geschriebenen Modell von Hendrik Nunner: https://github.com/hnunner/nidm-simulation_
 
-Gruppenmitglieder:
+### Gruppenmitglieder:
 * Katinka Feltes
 * Pius Gutsche
 * Helen Kuswik
