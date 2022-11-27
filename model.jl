@@ -1,5 +1,8 @@
 using Agents
 using Graphs
+using GLMakie
+using GraphMakie
+using Colors
 
 # SOCIAL BENEFITS
 b1 = 1.0 # benefit of direct connections
@@ -8,7 +11,7 @@ b2 = 0.5 # benefit of closed triad
 
 # SOCIAL COSTS
 c1 = 0.2 # cost of direct connections
-c2 = 1.55 # marginal cost of direct connections (∈ ℝ_0+)
+c2 = 0.55 # marginal cost of direct connections (∈ ℝ_0+)
 
 # DISEASE PROPERTIES
 σ = 5 # disease severity (>1)
@@ -18,7 +21,7 @@ c2 = 1.55 # marginal cost of direct connections (∈ ℝ_0+)
 # NETWORK PROPERTIES
 # number of agents to evaluate per time step
 function Φ(n)  # n = existing number of agents 
-    min(nv(n), 20) 
+    min(n, 20) 
 end
 Ψ = 0.4 # proportion of ɸ at distance 1
 ξ = 0.2 # proportion of ɸ at distance 2
@@ -33,11 +36,11 @@ end
 graph = SimpleGraph()
 model = ABM(Human, nothing)
 
-for i in 1:5
-    add_agent!(Human(i, 0.5, 0, 'S'), model)
+for i in 1:50
+    add_agent!(Human(i, 0.1, 0, 'S'), model)
     add_vertex!(graph) 
 end
-add_agent!(Human(6, 0.5, 0, 'I'), model)
+add_agent!(Human(51, 0.5, 0, 'I'), model)
 add_vertex!(graph) 
 add_edge!(graph, 6, 2)
 add_edge!(graph, 6, 3)
@@ -60,11 +63,21 @@ function distance2_neighbors(graph, vertex)
     return distance2
 end
 
-function utility(agent)
-    t = length(neighbors(graph, agent)) # number of direct connection of agent
-    
+function utility(agent, graph)
+
+    t = length(neighbors(graph, agent.id)) # number of direct connection of agent
+
+    # possible triangles with current neighbors
+    function possible_triads(n) # n = number of neighbors
+        n < 2 && return 0
+        return possible_triads(n-1) + (n-1)
+    end
     # proportion of closed triads of agent
-    x = 155
+    x = 1
+    if length(neighbors(graph, agent.id)) > 1 
+         x = triangles(graph, agent.id) / possible_triads(length(neighbors(graph, agent.id)))
+    end 
+    """println(x, "triangle: ", triangles(graph, agent.id), ", possbiel: ", possible_triads(length(neighbors(graph, agent.id))))"""
 
     benefit = b1 * t + b2 * (1 - 2 * abs(x - α)/max(α, 1-α))
 
@@ -97,8 +110,6 @@ function disease_dynamics()
     end
 end
 
-disease_dynamics()
-
 function network_formation()
     processed_agents = []
     # repeat until all agents have been processed
@@ -119,21 +130,35 @@ function network_formation()
             end
             # with probability 1 – Ψ – ξ: a random agent from the entire population (excluding curent agent)
             for person in allagents(model)
-                person != agent && rand() < (1 - Ψ - ξ) && push!(encounters, person)
+                person != agent && rand() < (1 - Ψ - ξ) && push!(encounters, person.id)
             end
         end
         # repeat until all agents in encounters have been processed
         """ TODO randomize selection of encounter """
         for encounter in encounters
             # if agent is connected to encounter-agent
-            if has_edge(graph, agent.id, encounter.id)
+            if has_edge(graph, agent.id, encounter)
                 # terminate agent-encounter tie, if utility for agent without the tie is larger than current utility
-                
+                simulated = copy(graph)
+                rem_edge!(simulated, agent.id, encounter)
+                utility(agent, simulated) > utility(agent, graph) && rem_edge!(graph, agent.id, encounter)
             else
                 # create agent-encounter tie, if utility for agent & encounter-agent is larger with tie than current utility
-
+                simulated = copy(graph)
+                add_edge!(simulated, agent.id, encounter)
+                utility(agent, simulated) > utility(agent, graph) && add_edge!(graph, agent.id, encounter)
             end
         end
     end
 end
 
+network_formation()
+
+function color(x)
+    if (model[x].health_status == 'I') 
+        return colorant"red"
+    else return colorant"blue"
+    end
+end 
+
+graphplot(graph, node_color = map((x) -> color(x), vertices(graph)))

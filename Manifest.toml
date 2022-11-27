@@ -2,7 +2,7 @@
 
 julia_version = "1.8.2"
 manifest_format = "2.0"
-project_hash = "5a65933f8cb1bcf786dc77c62ca178e71c6af041"
+project_hash = "2a2db07f0514246c0b090ed847c57b12865bcd38"
 
 [[deps.AbstractFFTs]]
 deps = ["ChainRulesCore", "LinearAlgebra"]
@@ -482,12 +482,6 @@ git-tree-sha1 = "d979e54b71da82f3a65b62553da4fc3d18c9004c"
 uuid = "1d5cc7b8-4909-519e-a0f8-d0f5ad9712d0"
 version = "2018.0.3+2"
 
-[[deps.InteractiveDynamics]]
-deps = ["DataStructures", "Makie", "OSMMakie", "Observables", "Requires", "StatsBase", "Test"]
-git-tree-sha1 = "8775319a3117eed613dee993fd7dd996af0e8066"
-uuid = "ec714cd0-5f51-11eb-0b6e-452e7367ff84"
-version = "0.21.11"
-
 [[deps.InteractiveUtils]]
 deps = ["Markdown"]
 uuid = "b77e0a4c-d291-57a0-90e8-8db25a27a240"
@@ -634,9 +628,9 @@ version = "1.8.7+0"
 
 [[deps.Libglvnd_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg", "Xorg_libX11_jll", "Xorg_libXext_jll"]
-git-tree-sha1 = "7739f837d6447403596a75d19ed01fd08d6f56bf"
+git-tree-sha1 = "6f73d1dd803986947b2c750138528a999a6c7733"
 uuid = "7e76a0d4-f3c7-5321-8279-8d96eeed0f29"
-version = "1.3.0+3"
+version = "1.6.0+0"
 
 [[deps.Libgpg_error_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -771,9 +765,9 @@ uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 
 [[deps.ModernGL]]
 deps = ["Libdl"]
-git-tree-sha1 = "713fd24142921db94e5f7d7961f9ee033c6573d5"
+git-tree-sha1 = "cb7f10a4e69af6d022747ff181e3976f3de34408"
 uuid = "66fc600b-dfda-50eb-8b99-91cfa97b1301"
-version = "1.1.5"
+version = "1.1.6"
 
 [[deps.MosaicViews]]
 deps = ["MappedArrays", "OffsetArrays", "PaddedViews", "StackViews"]
@@ -812,12 +806,6 @@ version = "0.4.4"
 [[deps.NetworkOptions]]
 uuid = "ca575930-c2e3-43a9-ace4-1e988b2c1908"
 version = "1.2.0"
-
-[[deps.OSMMakie]]
-deps = ["GraphMakie", "Graphs", "LightOSM", "Makie"]
-git-tree-sha1 = "3b4e74463b9255656678bccebc722006c356155b"
-uuid = "76b6901f-8821-46bb-9129-841bc9cfe677"
-version = "0.0.5"
 
 [[deps.Observables]]
 git-tree-sha1 = "6862738f9796b3edc1c09d0890afce4eca9e7e93"
