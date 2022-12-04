@@ -4,7 +4,14 @@ using GLMakie
 using GraphMakie
 using Colors
 
-# SOCIAL BENEFITS
+@agent Human NoSpaceAgent begin
+    risk_perception::Real
+    days_infected::Int
+    health_status::Char
+end
+
+
+"""# SOCIAL BENEFITS
 b1 = 1.0 # benefit of direct connections
 b2 = 0.5 # benefit of closed triad
 α = 0.5 # preferred proportion of closed triads [0, 1]
@@ -19,35 +26,48 @@ c2 = 0.55 # marginal cost of direct connections (∈ ℝ_0+)
 τ = 10 # recovery time (time steps) (>0)
 
 # NETWORK PROPERTIES
+Ψ = 0.4 # proportion of ɸ at distance 1
+ξ = 0.2 # proportion of ɸ at distance 2 """
+function initialize_model(; number_of_agents = 50, α = 0.5, c2 = 0.55, σ = 5, γ = 0.5, τ = 10, r = 0.5)
+
+    properties = Dict(
+        :graph => SimpleGraph(),
+        :b1 => 1.0, 
+        :b2 => 0.5, 
+        :α => α, 
+        :c1 => 0.2, 
+        :c2 => c2, 
+        :σ => σ,
+        :γ => γ,
+        :τ => τ, 
+        :number_of_agents => number_of_agents,
+        :r => r,
+        :Ψ => 0.4,
+        :ξ => 0.2
+    )
+
+    model = ABM(Human, nothing; properties)
+
+    for i in 1:number_of_agents
+        add_agent!(Human(i, model.r, 0, 'S'), model)
+        add_vertex!(model.graph) 
+    end
+
+    return model
+end
+
 # number of agents to evaluate per time step
 function Φ(n)  # n = existing number of agents 
     min(n, 20) 
 end
-Ψ = 0.4 # proportion of ɸ at distance 1
-ξ = 0.2 # proportion of ɸ at distance 2
 
-
-@agent Human NoSpaceAgent begin
-    risk_perception::Real
-    days_infected::Int
-    health_status::Char
+function infect!(agent)
+    agent.health_status == 'S' && (agent.health_status = 'I')
 end
 
-graph = SimpleGraph()
-model = ABM(Human, nothing)
-
-for i in 1:50
-    add_agent!(Human(i, 0.1, 0, 'S'), model)
-    add_vertex!(graph) 
-end
-add_agent!(Human(51, 0.5, 0, 'I'), model)
-add_vertex!(graph) 
-add_edge!(graph, 6, 2)
-add_edge!(graph, 6, 3)
-
-function infected_neighbors(agent) 
+function infected_neighbors(agent, model) 
     infected = 0
-    for id in neighbors(graph, agent.id)
+    for id in neighbors(model.graph, agent.id)
         if model[id].health_status == 'I'
             infected += 1
         end
@@ -63,7 +83,7 @@ function distance2_neighbors(graph, vertex)
     return distance2
 end
 
-function utility(agent, graph)
+function utility(agent, model; graph = model.graph)
 
     t = length(neighbors(graph, agent.id)) # number of direct connection of agent
 
@@ -79,15 +99,15 @@ function utility(agent, graph)
     end 
     """println(x, "triangle: ", triangles(graph, agent.id), ", possbiel: ", possible_triads(length(neighbors(graph, agent.id))))"""
 
-    benefit = b1 * t + b2 * (1 - 2 * abs(x - α)/max(α, 1-α))
+    benefit = model.b1 * t + model.b2 * (1 - 2 * abs(x - model.α)/max(model.α, 1-model.α))
 
-    cost = c1 * t + c2 * t^2
+    cost = model.c1 * t + model.c2 * t^2
 
     function disease()
         if agent.health_status == 'S'
-            return σ^agent.risk_perception * π^(2-agent.risk_perception)
+            return model.σ^agent.risk_perception * π^(2-agent.risk_perception)
         elseif agent.health_status == 'I'
-            return σ
+            return model.σ
         else
             return 0
         end
@@ -96,63 +116,61 @@ function utility(agent, graph)
     return benefit - cost - disease()
 end
     
-function disease_dynamics()
+function disease_dynamics!(model)
     for agent in allagents(model)
         # if i is susceptible, compute whether i gets infected
         if agent.health_status == 'S'  
-            infection_probability = 1 - (1 - γ)^infected_neighbors(agent)
+            infection_probability = 1 - (1 - model.γ)^infected_neighbors(agent, model)
             rand() < infection_probability && (agent.health_status = 'I') # rand() returns a number in [0,1)
         # if i is infected, compute whether agent recovers: passed time steps since infection ≥ τ.
         elseif agent.health_status == 'I'
             agent.days_infected += 1
-            agent.days_infected >= τ && (agent.health_status = 'R')
+            agent.days_infected >= model.τ && (agent.health_status = 'R')
         end
     end
 end
 
-function network_formation()
+function network_formation!(model)
     processed_agents = []
     # repeat until all agents have been processed
-    while length(processed_agents) < nv(graph)
+    while length(processed_agents) < nv(model.graph)
         # randomly select an unprocessed agent
         agent = random_agent(model, x -> x ∉ processed_agents)
         push!(processed_agents, agent)
         encounters = Set([])
         # add agents to encounters until it consists of Φ agents
-        while length(encounters) < Φ(nv(graph))
+        while length(encounters) < Φ(nv(model.graph))
             # with probability Ψ: a random neighbor of current agent (distance 1)​
-            for neighbor in neighbors(graph, agent.id)
-                rand() < Ψ && push!(encounters, neighbor)
+            for neighbor in neighbors(model.graph, agent.id)
+                rand() < model.Ψ && push!(encounters, neighbor)
             end
             # with probability ξ: a random neighbor‘s neighbor of current agent (distance 2)
-            for neighbor in distance2_neighbors(graph, agent.id)
-                rand() < ξ && push!(encounters, neighbor)
+            for neighbor in distance2_neighbors(model.graph, agent.id)
+                rand() < model.ξ && push!(encounters, neighbor)
             end
             # with probability 1 – Ψ – ξ: a random agent from the entire population (excluding curent agent)
             for person in allagents(model)
-                person != agent && rand() < (1 - Ψ - ξ) && push!(encounters, person.id)
+                person != agent && rand() < (1 - model.Ψ - model.ξ) && push!(encounters, person.id)
             end
         end
         # repeat until all agents in encounters have been processed
         """ TODO randomize selection of encounter """
         for encounter in encounters
             # if agent is connected to encounter-agent
-            if has_edge(graph, agent.id, encounter)
+            if has_edge(model.graph, agent.id, encounter)
                 # terminate agent-encounter tie, if utility for agent without the tie is larger than current utility
-                simulated = copy(graph)
+                simulated = copy(model.graph)
                 rem_edge!(simulated, agent.id, encounter)
-                utility(agent, simulated) > utility(agent, graph) && rem_edge!(graph, agent.id, encounter)
+                utility(agent, model, graph=simulated) > utility(agent, model) && rem_edge!(model.graph, agent.id, encounter)
             else
                 # create agent-encounter tie, if utility for agent & encounter-agent is larger with tie than current utility
-                simulated = copy(graph)
+                simulated = copy(model.graph)
                 add_edge!(simulated, agent.id, encounter)
-                utility(agent, simulated) > utility(agent, graph) && add_edge!(graph, agent.id, encounter)
+                utility(agent, model, graph=simulated) > utility(agent, model) && add_edge!(model.graph, agent.id, encounter)
             end
         end
     end
 end
-
-network_formation()
 
 function color(x)
     if (model[x].health_status == 'I') 
@@ -161,4 +179,10 @@ function color(x)
     end
 end 
 
-graphplot(graph, node_color = map((x) -> color(x), vertices(graph)))
+
+model = initialize_model(number_of_agents = 50, α = 1, c2 = 0.1)
+infect!(random_agent(model))
+
+disease_dynamics!(model)
+network_formation!(model)
+graphplot(model.graph, node_color = map((x) -> color(x), vertices(model.graph)))
