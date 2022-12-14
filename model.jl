@@ -1,9 +1,8 @@
-using Agents
+module Model
+
+using Agents, Random
 using Graphs
-using GLMakie
-using GraphMakie
-using Colors
-using Random
+using GLMakie, GraphMakie, Colors
 
 @agent Human NoSpaceAgent begin
     risk_perception::Real
@@ -94,7 +93,6 @@ function utility(agent, model; graph = model.graph)
     if length(neighbors(graph, agent.id)) > 1 
          x = triangles(graph, agent.id) / possible_triads(length(neighbors(graph, agent.id)))
     end 
-    """println(x, "triangle: ", triangles(graph, agent.id), ", possbiel: ", possible_triads(length(neighbors(graph, agent.id))))"""
 
     benefit = model.b1 * t + model.b2 * (1 - 2 * abs(x - model.α)/max(model.α, 1-model.α))
 
@@ -168,19 +166,25 @@ function network_formation!(model)
     end
 end
 
-function color(x)
-    if (model[x].health_status == 'I') 
-        return colorant"red"
-    elseif (model[x].health_status == 'S')
-        return colorant"blue"
-    else 
-        return colorant"gray"
-    end
-end 
+function visualize(model)
+    function color(x)
+        if (model[x].health_status == 'I') 
+            return colorant"red"
+        elseif (model[x].health_status == 'S')
+            return colorant"blue"
+        else 
+            return colorant"gray"
+        end
+    end 
+    
+    graphplot(model.graph, node_color = map((x) -> color(x), vertices(model.graph)))
+end
 
-model = initialize_model(number_of_agents = 20, α = 1, c2 = 0.1)
-infect!(random_agent(model))
+function model_step!(model) 
+    disease_dynamics!(model)
+    network_formation!(model)
 
-disease_dynamics!(model)
-network_formation!(model)
-graphplot(model.graph, node_color = map((x) -> color(x), vertices(model.graph)))
+    visualize(model)
+end
+
+end
