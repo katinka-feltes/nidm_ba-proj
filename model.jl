@@ -28,7 +28,13 @@ c2 = 0.55 # marginal cost of direct connections (∈ ℝ_0+)
 ## NETWORK PROPERTIES
 Ψ = 0.4 # proportion of ɸ at distance 1
 ξ = 0.2 # proportion of ɸ at distance 2 """
-function initialize_model(; number_of_agents = 30, α = 0.5, c2 = 0.55, σ = 5, γ = 0.5, τ = 10, r = 0.5, seed=0)
+function initialize_model(; number_of_agents = 30, α = 0.5, c2 = 0.55, σ = 5, γ = 0.5, τ = 10, r = 0.5, Φ = 10, seed=0)
+
+    function phi(p::Number) # number of agents to evaluate per time step
+        m = min(p, 20)
+        m >= number_of_agents && return number_of_agents-1
+        return m
+    end
 
     properties = Dict(
         :graph => SimpleGraph(),
@@ -42,6 +48,7 @@ function initialize_model(; number_of_agents = 30, α = 0.5, c2 = 0.55, σ = 5, 
         :τ => τ, 
         :number_of_agents => number_of_agents,
         :r => r,
+        :Φ => phi(Φ),
         :Ψ => 0.4,
         :ξ => 0.2
     )
@@ -55,9 +62,6 @@ function initialize_model(; number_of_agents = 30, α = 0.5, c2 = 0.55, σ = 5, 
 
     return model
 end
-
-# number of agents to evaluate per time step
-Φ(n) = min(n-1, 20)  # n = existing number of agents 
 
 infect!(agent) = agent.health_status == 'S' && (agent.health_status = 'I')
 
@@ -134,7 +138,7 @@ function network_formation!(model)
         push!(processed_agents, agent)
         encounters = Set([])
         # add agents to encounters until it consists of Φ agents
-        while length(encounters) < Φ(nv(model.graph))
+        while length(encounters) < model.Φ
             # with probability Ψ: a random neighbor of current agent (distance 1)​
             for neighbor in neighbors(model.graph, agent.id)
                 rand(model.rng) < model.Ψ && push!(encounters, neighbor)
@@ -168,12 +172,12 @@ end
 
 function visualize(model)
     function color(x)
-        if (model[x].health_status == 'I') 
-            return colorant"red"
-        elseif (model[x].health_status == 'S')
+        if (model[x].health_status == 'S') 
             return colorant"blue"
+        elseif (model[x].health_status == 'I')
+            return colorant"red"
         else 
-            return colorant"gray"
+            return colorant"gray" #R
         end
     end 
     

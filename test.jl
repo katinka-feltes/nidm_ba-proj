@@ -3,6 +3,7 @@ using Agents
 
 model = Model.initialize_model()
 model = Model.initialize_model(number_of_agents = 50, α = 1, c2 = 0.1)
+model = Model.initialize_model(number_of_agents = 24, α = 0.75, c2 = 0.1, Φ = 10) # Nunners Werte
 
 Model.infect!(random_agent(model))
 
@@ -49,4 +50,3 @@ up(8002, async = true)
 using Random
 testSet = Set([1,2,3,1,4,5])
 shuffle(collect(testSet))"""
-
