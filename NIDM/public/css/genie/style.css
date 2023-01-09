@@ -1,0 +1,174 @@
+body {
+	font-family: sans-serif;
+    color: #404142;
+    font-size: 16px;
+	letter-spacing: 0.8px;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 200;
+}
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+a {
+	-webkit-transition: all 0.3s;
+  	-moz-transition: all 0.3s;
+  	transition: all 0.3s;
+}
+a:hover, a:focus, a:active, a:visited {
+    text-decoration: none;
+}
+
+/* Buttons override */
+.btn {
+	text-transform: uppercase;
+    font-weight: 600;
+}
+.btn-lg {
+	padding: 15px 40px;
+    font-size: 16px;
+    line-height: none;
+    border-radius: 4px;
+}
+.btn-yellow {
+	background-color: #fcd93b;
+	color: #2a2a2a;
+	opacity: 0.8;
+}
+.btn-yellow:hover {
+	opacity: 1;
+}
+.btn-yellow.disabled:hover,
+.btn-yellow[disabled]:hover {
+    opacity: 0.65;
+}
+.content-ct {
+	text-align: center;
+}
+
+/* ------------------
+	Navigation
+------------------ */
+.hero-header {
+	background: #184e64;
+	min-height: 155px;
+	padding: 5em;
+	color: #fff;
+}
+.hero-header h1 {
+	margin: 1em 0 0 0;
+}
+.hero-header h4 {
+	font-weight: normal;
+	opacity: 0.6;
+    letter-spacing: 1px;
+    margin: 2em 0;
+}
+.hero-header .logo {
+	max-width: 200px;
+}
+.hero-header .btn {
+	margin-top: 3em;
+}
+.hero-header .rocket {
+	max-width: 100%;
+}
+.me-row {
+	padding: 30px 0;
+}
+.row-title {
+	font-weight: 400;
+}
+
+.footer {
+    background-color: #2a2a2a;
+    margin-top: 30px;
+    color: #fff;
+}
+.footer p {
+    margin-bottom: 0;
+}
+.footer-credit {
+    padding: 40px;
+}
+ul.footer-menu {
+    text-align: right;
+}
+ul.footer-menu li {
+    display: inline-block;
+}
+ul.footer-menu li a {
+    font-size: 12px;
+    color: #fcd93b;
+    padding-right: 20px;
+}
+ul.footer-menu li a:hover {
+    color: #dd5138;
+}
+
+/* ========================================
+    Custom Media Queries
+======================================== */
+
+/* Mobile */
+
+@media (max-width: 767px) {
+    .hero-header {
+        padding: 3em 1em 1em 1em;
+        text-align: center;
+        max-height: 550px;
+    }
+    .speaker .feature {
+        width: 100%
+    }
+    .footer-credit {
+        text-align: center;
+        padding: 40px 20px;
+    }
+    ul.footer-menu {
+        text-align: center;
+        margin-top: 30px;
+    }
+}
+
+/* iPad Portrait */
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .hero-header {
+        padding: 3em 1em 1em 1em;
+        text-align: center;
+    }
+    .speaker .feature {
+        width: 49%;
+        margin-right: 7px;
+    }
+    ul.footer-menu {
+        margin-top: 0;
+    }
+}
+
+/* iPad Landscape */
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .speaker .feature {
+        width: 49%;
+        margin-right: 9px;
+    }
+}
+
+#main-heading {
+	font-size: 55px;
+	font-weight: 500;
+	color: #fff;
+}
+
+#nav-bar-logo {
+	margin-top: -8px;
+	width: 40px;
+}
+
+#home {
+	padding-bottom: 2em;
+}
