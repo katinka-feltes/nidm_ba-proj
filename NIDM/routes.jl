@@ -1,9 +1,13 @@
-using Genie.Router
+using Genie.Router, Genie.Requests
+using .SimulationsController
 
-route("/") do
-  serve_static_file("NIDM.html")
+route("/", SimulationsController.agents)
+
+route("/", method = POST) do
+  enteredData=postpayload(:test, "Placeholder")
+  "wuhu, range: $(enteredData) xD"
 end
 
-route("/agents", SimulationsController.agents)
-
 route("/new", SimulationsController.newmodel)
+
+route("/api/v1/agents", SimulationsController.API.agents)

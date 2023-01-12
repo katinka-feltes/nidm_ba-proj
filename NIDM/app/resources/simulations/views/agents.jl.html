@@ -1,6 +1,14 @@
-<h1>Models top $(length(agents)) Agents</h1>
-<ul>
-  <% for_each(agents) do agent %>
-    <li>$(agent.id) is $(agent.health_status)</li>
-  <% end %>
-</ul>
+<div class="m-5">
+  <h1>Models top $(length(agents)) Agents</h1>
+    
+  <form action="/" method="POST" enctype="multipart/form-data">
+    <input type="range" class="form-range" name="test" value="10">
+    <input type="submit" value="+" />
+  </form>
+
+  <ul>
+    <% for_each(agents) do agent %>
+      <li>$(agent.id) is $(agent.health_status)</li>
+    <% end %>
+  </ul>
+</div>
