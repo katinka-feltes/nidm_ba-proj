@@ -1,19 +1,27 @@
 <header class="st-header q-pa-sm">
-    <h1 class="st-header__title text-h3">Header Text</h1>
+    <h1 class="st-header__title text-h3">Networking during Infectious Diseases Model</h1>
 </header>
 <div class="row">
     <div class="col col-12 col-sm">
-        <p>Agents</p>
+        <q-slider v-model="agents_amount"></q-slider>
+        <p v-text="value_agents">value agents</p>
+        <q-slider ></q-slider>
+        <p v-text="value_alpha">value alpha</p>
+        <q-slider></q-slider>
+        <p>Default content</p>
     </div>
     <div class="col col-12 col-sm st-module">
-        <p>Column content</p>
+        <p v-text="agents">agents list</p>
     </div>
     <div class="col col-12 col-sm st-module">
-        <p>Column content</p>
-    </div>
-</div>
-<div class="row">
-    <div class="col col-12 col-sm">
-        <p>Column content</p>
+        <p>information</p>
+        <ul>
+            <li v-text="list">eins</li>
+            <li>z</li>
+        </ul>
+        <q-list>
+            <q-item>hallo</q-item>
+            <q-item v-model="bla"></q-item>
+        </q-list>
     </div>
 </div>
