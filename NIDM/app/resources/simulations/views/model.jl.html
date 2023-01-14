@@ -1,0 +1,21 @@
+<div class="m-5">
+  <h1>moin model with $(model.number_of_agents) menschen</h1>
+    
+  <form action="/" method="POST" enctype="multipart/form-data">
+    <input type="range" class="form-range" name="test" value="10">
+    <input type="submit" value="+" />
+  </form>
+
+  <div>
+    b1: $(model.b1)
+    infected agents: 
+      $(length(filter((a) -> a.health_status == 'I', Set(values(model.agents)))))
+
+      <ul>
+        <% for_each(values(model.agents)) do agent %>
+          <li>$(agent.id) is $(agent.health_status)</li>
+        <% end %>
+      </ul>
+
+  </div>
+</div>

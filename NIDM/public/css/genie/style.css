@@ -54,6 +54,7 @@ a:hover, a:focus, a:active, a:visited {
 .hero-header {
 	background: #184e64;
 	min-height: 155px;
+    max-height: 200px;
 	padding: 5em;
 	color: #fff;
 }

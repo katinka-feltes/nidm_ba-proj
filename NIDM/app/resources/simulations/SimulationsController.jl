@@ -7,7 +7,11 @@ module SimulationsController
 
   using Genie.Renderer.Html
   function agents()
-    html(:simulations, :agents, agents = model)
+    html(:simulations, :agents, agents = allagents(model))
+  end
+
+  function showmodel()
+    html(:simulations, :model, model = model)
   end
 
   function newmodel()
@@ -16,5 +20,9 @@ module SimulationsController
     html(:simulations, :agents, agents = allagents(model))
   end
 
+  function step()
+    Model.infect!(random_agent(model))
+    html(:simulations, :model, model = model)
+  end
   
 end
