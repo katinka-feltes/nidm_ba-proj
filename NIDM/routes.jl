@@ -10,4 +10,6 @@ end
 
 route("/new", SimulationsController.newmodel)
 
-route("/api/v1/agents", SimulationsController.API.agents)
+route("/g") do 
+  serve_static_file("graph.html") 
+end 
