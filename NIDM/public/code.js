@@ -39,13 +39,11 @@ center: {
 collide: {
     enabled: true,
     strength: .7,
-    iterations: 1,
     radius: 5
 },
 link: {
     enabled: true,
     distance: 30,
-    iterations: 1
 }
 }
 
@@ -69,11 +67,9 @@ simulation.force("center")
 simulation.force("collide")
     .strength(forceProperties.collide.strength * forceProperties.collide.enabled)
     .radius(forceProperties.collide.radius)
-    .iterations(forceProperties.collide.iterations);
 simulation.force("link")
     .id(function(d) {return d.id;})
     .distance(forceProperties.link.distance)
-    .iterations(forceProperties.link.iterations)
     .links(forceProperties.link.enabled ? graph.links : []);
 
 // updates ignored until this is run
