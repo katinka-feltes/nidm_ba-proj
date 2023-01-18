@@ -1,10 +1,10 @@
 {
     "nodes": [
-      {"id": "1"},
-      {"id": "2"},
-      {"id": "3"},
-      {"id": "4"},
-      {"id": "5"}
+      {"id": "1", "health_status":"S"},
+      {"id": "2", "health_status":"I"},
+      {"id": "3", "health_status":"S"},
+      {"id": "4", "health_status":"I"},
+      {"id": "5", "health_status":"R"}
     
     ],
     "links": [
