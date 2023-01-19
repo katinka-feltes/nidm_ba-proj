@@ -3,6 +3,12 @@
 </header>
 <div class="row">
     <div class="col col-12 col-sm">
+        <p>Step:</p>
+        <q-btn :color="color" :label="step_button_label" v-model="but" v-on:click="but=true"></q-btn>
+    </div>
+</div>
+<div class="row">
+    <div class="col col-12 col-sm">
         <h5>amount of agents<br /></h5>
         <q-slider v-model="agents_amount" :min="min" :max="max_agents"></q-slider>
         <p v-text="value_agents">value agents</p>

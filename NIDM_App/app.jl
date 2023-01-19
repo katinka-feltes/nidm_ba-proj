@@ -8,6 +8,7 @@ using Agents
 @genietools
 
 model = Model.initialize_model(number_of_agents = 24, α = 0.75, c2 = 0.1, Φ = 10)
+@out const color = "red"
 @out const min = 0
 @out const min1 = 1
 @out const steps_small = 0.1
@@ -16,6 +17,7 @@ model = Model.initialize_model(number_of_agents = 24, α = 0.75, c2 = 0.1, Φ = 
 @out const two = 2
 @out const max_σ = 10
 @out const max_τ = 50
+@out const step_button_label = "Step"
 
 @handlers begin
     @in agents_amount = 20 #default values so UI can be rendered when page loads
@@ -36,7 +38,17 @@ model = Model.initialize_model(number_of_agents = 24, α = 0.75, c2 = 0.1, Φ = 
     @out value_Φ = Φ
     @out max_Φ = 50
     @out agents = allagents(model)
+    @in but = false
+
+    @onchange but begin
+        @info "step_button pressed"
+        Model.infect!(random_agent(model))
+        Model.model_step!(model)
+        agents = allagents(model)
+    end
+
     @onchangeany agents_amount, alpha, cost2, risk, σ, γ, τ, Φ  begin
+        print("Bla")
         value_agents = agents_amount
         max_Φ = agents_amount-1
         value_alpha = alpha
@@ -46,8 +58,8 @@ model = Model.initialize_model(number_of_agents = 24, α = 0.75, c2 = 0.1, Φ = 
         value_γ = γ
         value_τ = τ
         value_Φ = Φ
-        model2 = Model.initialize_model(number_of_agents=agents_amount, α=alpha, r=risk)
-        agents = allagents(model2)
+        model = Model.initialize_model(number_of_agents=agents_amount, α=alpha, r=risk)
+        agents = allagents(model)
     end
 end
 
