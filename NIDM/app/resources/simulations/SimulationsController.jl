@@ -8,7 +8,7 @@ module SimulationsController
 
   using Genie.Renderer.Html
   function agents()
-    html(:simulations, :agents, agents = model) //maybe auch all_agents statt model 
+    html(:simulations, :agents, agents = model) #maybe auch all_agents statt model 
   end
 
   function newmodel()
