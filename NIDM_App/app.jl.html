@@ -1,0 +1,49 @@
+<header class="st-header q-pa-sm">
+    <h1 class="st-header__title text-h3">Networking during Infectious Diseases Model</h1>
+</header>
+<div class="row">
+    <div class="col col-12 col-sm">
+        <p>Step:</p>
+        <q-btn :color="color" :label="step_button_label" v-model="but" v-on:click="but=true"></q-btn>
+    </div>
+</div>
+<div class="row">
+    <div class="col col-12 col-sm">
+        <h5>amount of agents<br /></h5>
+        <q-slider v-model="agents_amount" :min="min" :max="max_agents"></q-slider>
+        <p v-text="value_agents">value agents</p>
+        <h5>pref. proportion of closed triads (alpha)<br /></h5>
+        <q-slider v-model="alpha" :min="min" :max="max1" :step="steps_small"></q-slider>
+        <p v-text="value_alpha">value alpha</p>
+        <h5>risk perception (r)<br /></h5>
+        <q-slider v-model="risk" :min="min" :max="two" :step="steps_small"></q-slider>
+        <p v-text="value_risk">value risk perception</p>
+        <h5>cost of direct connections (c2)</h5>
+        <q-slider v-model="cost2" :min="min" :max="max1" :step="steps_small"></q-slider>
+        <p v-text="value_cost2">value cost dir. connect.</p>
+        <h5>disease severity (sigma)</h5>
+        <q-slider v-model="σ" :min="two" :max="max_σ"></q-slider>
+        <p v-text="value_σ">value disease severity</p>
+        <h5>transmission rate (gamma)</h5>
+        <q-slider v-model="γ" :min="min" :max="max1" :step="steps_small"></q-slider>
+        <p v-text="value_γ">value transmission rate</p>
+        <h5>recovery time (tau)</h5>
+        <q-slider v-model="τ" :min="min1" :max="max_τ"></q-slider>
+        <p v-text="value_τ">value recovery time</p>
+        <h5>how many encounters per time step (Phi)</h5>
+        <q-slider v-model="Φ" :min="min1" :max="max_Φ"></q-slider>
+        <p v-text="value_Φ">value Phi</p>
+    </div>
+    <div class="col col-12 col-sm st-module">
+        <p v-text="agents">agents list</p>
+        <p>information</p>
+        <ul>
+            <li>eins</li>
+            <li>z</li>
+        </ul>
+        <q-list>
+            <q-item>hallo</q-item>
+            <q-item></q-item>
+        </q-list>
+    </div>
+</div>
