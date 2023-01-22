@@ -8,12 +8,6 @@ module SimulationsController
 
   using Genie.Renderer.Html
   function agents()
-    html(:simulations, :agents, agents = model) #maybe auch all_agents statt model 
-  end
-
-  function newmodel()
-    model = Model.initialize_model(number_of_agents = 5, α = 0.75, c2 = 0.1, Φ = 10)
-
     html(:simulations, :agents, agents = all_agents)
   end
 
