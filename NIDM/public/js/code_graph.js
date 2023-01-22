@@ -37,7 +37,7 @@ function initializeDisplay() {
     .selectAll("nodes")
         .data(graph.nodes)
     .enter().append("circle")
-        .attr("r", 7)
+        .attr("r", 10)
         .style("fill", function(d){ return color(d.health_status)})
 
     // node tooltip
@@ -53,7 +53,7 @@ function initializeSimulation() {
     // Let's list the force we wanna apply on the network
     simulation
         .force("link", d3.forceLink()                               // This force provides links between nodes
-            .id(function(d) { return d.id; })                     // This provide  the id of a node
+            .id(function(d) { return d.id; })                       // This provide  the id of a node
             .links(graph.links)                                    // and this the list of links
         )
         .force("charge", d3.forceManyBody().strength(-200))         // This adds repulsion between nodes. Play with the -400 for the repulsion strength
@@ -102,6 +102,7 @@ function update(data) {
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
 
+    link = u;
 
     // Create the u variable for the nodes
     var u = svg.selectAll("circle")
@@ -116,7 +117,7 @@ function update(data) {
     
     u.enter()
         .append("circle") // Add a new line for each new elements
-            .attr("r", 7)
+            .attr("r", 10)
             .style("fill", "#fff")
             .attr("class", "nodes")
         .merge(u) // get the already existing elements as well
@@ -125,8 +126,11 @@ function update(data) {
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; })
         .style("fill", function(d){ return color(d.health_status)});
+    
+    node = u;
 
     initializeSimulation()
+
 }    
 
 function color(status){
@@ -136,31 +140,21 @@ function color(status){
 }
 
 // API
-async function post(){
+async function post(content){
     fetch('http://localhost:8000/data', {
         method: 'POST',
         headers: {},
-        body: JSON.stringify({ "id": 78912 })
-    })
-    .then(response => response.json())
-    .then(response => console.log(JSON.stringify(response)))
-}
-
-async function get(){
-    await fetch('http://localhost:8000/data')
-    .then((response) => response.json())
-    .then((data) => {console.log(data); update(data)});
-}
-
-async function step(){
-    fetch('http://localhost:8000/data', {
-        method: 'PUT',
-        headers: {},
-        body: "step"
+        body: content
     })
     .then(response => response.json())
     .then(response => {
         console.log(JSON.stringify(response));
         update(response)
     })
+}
+
+async function get(){
+    await fetch('http://localhost:8000/data')
+    .then((response) => response.json())
+    .then((data) => {console.log(data); update(data)});
 }

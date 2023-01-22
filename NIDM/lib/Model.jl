@@ -83,7 +83,7 @@ function distance2_neighbors(graph, vertex)
     return distance2
 end
 
-function utility(agent, model; graph = model.graph)
+function utility(agent, model::ABM; graph = model.graph)
 
     t = length(neighbors(graph, agent.id)) # number of direct connection of agent
 
@@ -115,7 +115,7 @@ function utility(agent, model; graph = model.graph)
     return benefit - cost - disease()
 end
     
-function disease_dynamics!(model)
+function disease_dynamics!(model::ABM)
     for agent in allagents(model)
         # if i is susceptible, compute whether i gets infected
         if agent.health_status == 'S'  
@@ -129,7 +129,7 @@ function disease_dynamics!(model)
     end
 end
 
-function network_formation!(model)
+function network_formation!(model::ABM)
     processed_agents = []
     # repeat until all agents have been processed
     while length(processed_agents) < nv(model.graph)
@@ -170,7 +170,7 @@ function network_formation!(model)
     end
 end
 
-function visualize(model)
+function visualize(model::ABM)
     function color(x)
         if (model[x].health_status == 'S') 
             return colorant"blue"
@@ -184,11 +184,15 @@ function visualize(model)
     graphplot(model.graph, node_color = map((x) -> color(x), vertices(model.graph)))
 end
 
-function model_step!(model) 
+function model_step!(model::ABM) 
     disease_dynamics!(model)
     network_formation!(model)
 
     visualize(model)
+end
+
+function set_property!(property_name::Symbol, value, model::ABM)
+    model.properties[property_name] = value
 end
 
 end
