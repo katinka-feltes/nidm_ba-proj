@@ -145,9 +145,9 @@ function network_formation!(model)
             end
             # with probability ξ: a random neighbor‘s neighbor of current agent (distance 2)
             for neighbor in distance2_neighbors(model.graph, agent.id)
-                rand(model.rng) < model.ξ && push!(encounters, neighbor)
+                neighbor != agent.id && rand(model.rng) < model.ξ && push!(encounters, neighbor)
             end
-            # with probability 1 – Ψ – ξ: a random agent from the entire population (excluding curent agent)
+            # with probability 1 – Ψ – ξ: a random agent from the entire population (excluding current agent)
             for person in allagents(model)
                 person != agent && rand(model.rng) < (1 - model.Ψ - model.ξ) && push!(encounters, person.id)
             end
