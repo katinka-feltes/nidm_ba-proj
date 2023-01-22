@@ -1,11 +1,10 @@
+
 var svg = d3.select("svg"),
 width = +svg.node().getBoundingClientRect().width,
 height = +svg.node().getBoundingClientRect().height;
+
 var graph, data1, data2;
-
-// svg objects
-var link, node;
-
+var link, node; // svg objects
 var simulation = d3.forceSimulation()
 
 // load the data
@@ -151,4 +150,17 @@ async function get(){
     await fetch('http://localhost:8000/data')
     .then((response) => response.json())
     .then((data) => {console.log(data); update(data)});
+}
+
+async function step(){
+    fetch('http://localhost:8000/data', {
+        method: 'PUT',
+        headers: {},
+        body: "step"
+    })
+    .then(response => response.json())
+    .then(response => {
+        console.log(JSON.stringify(response));
+        update(response)
+    })
 }
