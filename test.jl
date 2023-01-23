@@ -17,36 +17,69 @@ end
 Model.visualize(model)
 
 
+#JSON EXPORT AND CONVERSION
+import JSON
+using Graphs
 
+import Main.Model as Model
+model = Model.initialize_model(number_of_agents = 10, α = 0.75, c2 = 0.1, Φ = 5)
+Model.model_step!(model)
+Model.infect!(model.agents[5])
 
+function create_jsgraph(model)
+    links = []
+    for i in 1:length(model.graph.fadjlist)
+        for target in model.graph.fadjlist[i]
+            push!(links, Dict(
+                "source" => i,
+                "target" => target
+            ))
+        end
+    end
 
-
-
-
-
-"""using Genie, Genie.Router
-using Genie.Renderer, Genie.Renderer.Html, Genie.Renderer.Json
-
-route("/") do
-    html("Hey friendz!")
+    return Dict(
+        "nodes" => [a for a in values(model.agents)],
+        "links" => links
+    )
 end
 
-route("/hello.html") do
-  html("Hello friendz! (in html)")
+#agents test 
+open("test.json", "w") do f
+    write(f, JSON.json(create_jsgraph(model)))
 end
 
-route("/hello.json") do
-  json("Hi friendz! (in json)")
+"""
+e = model.graph
+
+open("test.json", "w") do f
+    write(f, JSON.json(e.fadjlist))
 end
 
-route("/hello.txt") do
-   respond("Hiya friendz! (in txt format)", :text)
-end
+input  = JSON.parse(open("test.json")) 
 
-# Launch the server on a specific port, 8002
-# Run the task asynchronously
-up(8002, async = true)
+#result with different edges but same amount in total
+resultGraph = SimpleGraph(length(input["fadjlist"]), input["ne"]
+)
 
 using Random
 testSet = Set([1,2,3,1,4,5])
 shuffle(collect(testSet))"""
+
+#from rotes.jl
+"""route("/", method = POST) do
+    enteredData=postpayload(:test, "Placeholder")
+    "wuhu, range: dollar(enteredData) xD"
+  end"""
+
+"""json(Dict(
+    "nodes"=> [
+      Dict("id"=> "1", "health_status"=>"S"),
+      Dict("id"=> "2", "health_status"=>"I")
+    ],
+    "links"=> [
+      Dict("source"=> "1", "target"=> "2")
+]))"""
+"""
+# Launch the server on a specific port, 8002
+# Run the task asynchronously
+up(8002, async = true)"""

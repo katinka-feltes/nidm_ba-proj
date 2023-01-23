@@ -11,8 +11,11 @@ end
 #API
 # POST response from the server
 route("/data", method = POST) do
-  print(rawpayload())
-  json("yay, id: $(jsonpayload())")
+  if(rawpayload() == "step")
+    print("step")
+    new_model = SimulationsController.step()
+    json(create_jsgraph(new_model))
+  end
 end
 
 # GET response is teh current state of the model from SimulationsController
@@ -20,14 +23,6 @@ route("/data", method = GET) do
   json(create_jsgraph(SimulationsController.model))
 end
 
-# PUT response
-route("/data", method = PUT) do
-  if(rawpayload() == "step")
-    print("yay", jsonpayload())
-    new_model = SimulationsController.step()
-    json(create_jsgraph(new_model))
-  end
-end
 
 # Function to create a Dict that is in the correct form for javascript
 function create_jsgraph(model)

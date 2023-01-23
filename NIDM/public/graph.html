@@ -1,53 +1,51 @@
 <html>
-<head>
-<style>
-/* HTML styles */
-html{ width: 100%; }
-body{ 
-  width: 100%; 
-  margin: 0; padding: 0; 
-  display: flex; 
-  font-family: sans-serif; font-size: 75%; }
-.wrapper{
-  margin-top: 100;
-  margin-right: 10em;
-  width: 50;
-  display: block;
-}
-button{
-  width: 100; 
-  height: 30;
-  margin: 3; 
-  background-color: #155;
-  border-radius: 10em;
-  color: white;
-}
+  <head>
+    <style>
+    /* HTML styles */
+    html{ width: 100%; }
+    body{ 
+      width: 100%; 
+      margin: 0; padding: 0; 
+      display: flex; 
+      font-family: sans-serif; font-size: 75%; }
+    .wrapper{
+      margin-top: 100;
+      margin-right: 10em;
+      display: block;
+    }
+    button{
+      width: 100; 
+      height: 30;
+      margin: 3; 
+      background-color: #155;
+      border-radius: 10em;
+      color: white;
+    }
 
-/* SVG styles */
-svg {
-  margin: 10em;
-  flex-basis: 100%;
-  min-width: 200px;
-}
-.nodes circle {
-  pointer-events: all;
-}
+    /* SVG styles */
+    svg {
+      margin: 10em;
+      flex-basis: 100%;
+      min-width: 200px;
+    }
+    .nodes circle {
+      pointer-events: all;
+    }
 
-</style>
-</head>
-<body>
+    </style>
+  </head>
+  
+  <body>
+    <svg></svg>
+    <!-- Add 2 buttons -->
+    <div class="wrapper">
+      <button onclick="post('step')">step</button>
+      <button onclick="get()">get</button>
+      <button onclick="update(data1)">Dataset 1</button>
+      <button onclick="update(data2)">Dataset 2</button>
+    </div>
 
-<svg></svg>
-<!-- Add 2 buttons -->
-<div class="wrapper">
-  <button onclick="post()">post</button>
-  <button onclick="step()">step</button>
-  <button onclick="get()">get</button>
-  <button onclick="update(data1)">Dataset 1</button>
-  <button onclick="update(data2)">Dataset 2</button>
-</div>
-
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="js/code_graph.js"></script>
-</body>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="js/code_graph.js"></script>
+  </body>
 </html>
