@@ -1,4 +1,3 @@
-
 var svg = d3.select("svg"),
 width = +svg.node().getBoundingClientRect().width,
 height = +svg.node().getBoundingClientRect().height;
@@ -44,7 +43,6 @@ function initializeDisplay() {
     node.append("title")
         .text(function(d) { return d.id; });
 }
-
 
 function initializeSimulation() {
     

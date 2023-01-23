@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="https://moodle.uni-luebeck.de/theme/image.php/boost_campus_uzl/theme/1671719292/favicon" />
+    <title>NIDM Simulation</title>
+
+    <link href="/css/genie/bootstrap.min.css" rel="stylesheet"> <!-- Genie Bootstrap -->
+    <link href="/css/style.css" rel="stylesheet"/> <!-- Our Stylesheet -->
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div>
+            <h1>Networking During Infectious Diseases Model</h1>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main>
+        <div class = "col col-param">
+            <div>
+                <h2>Einstellungen zu den Menschen in deinem Netzwerk:</h2>
+                <h3>Anzahl der Menschen im Netzwerk</h3>
+                
+                <h3>Ihre Risikowahrnehmung</h3>
+                
+            </div>
+            <div>
+                <h2>Einstellungen zur Krankheit:</h2>
+                <h3>Wie ansteckend soll die Krankheit sein?</h3>
+                
+                <h3>Wie viele Zeitschritte dauert die Genesung?</h3>
+                
+            </div>
+            <h2>Noch spezifischere Einstellungen:</h2>
+            <div>
+                <h3>Wieviele Begegnungen haben die Personen pro Zeitschritt?</h3>
+                        
+                <h3>Wie stark ist das Bedürfnis der Menschen nach Kontakten?<br /></h3>
+                
+                <h3>Wieviel Arbeit macht die Aufrechterhaltung von Kontakten?</h3>
+                
+                <h3>Geschwindigkeit, in der sich die Krankheit ausbreitet</h3>
+                
+            </div>
+        </div>
+        <div class="col col-graph">
+            <div>
+                <button class="button-step" onclick="post('step')">1 Zeitschritt</button>
+                <button onclick="get()">get</button>
+                <button onclick="update(data1)">Dataset 1</button>
+                <button onclick="update(data2)">Dataset 2</button>
+            </div>
+            <svg></svg>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div>
+            <p>Created by <a href="https://github.com/katinka-feltes">Katinka Feltes</a> and <a href="https://github.com/hkuswik">Helen Kuswik</a></p>
+        </div>
+    </footer>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="js/code_graph.js"></script>
+
+</body>
+
+</html>
