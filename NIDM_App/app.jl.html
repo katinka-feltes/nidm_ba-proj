@@ -1,50 +1,74 @@
 <header class="st-header q-pa-sm">
-    <h1 class="st-header__title text-h3">Networking during Infectious Diseases Model</h1>
+    <div class="row">
+        <div class="col-12 col-sm">
+            <h1 class="st-header__title text-h3">Networking during Infectious Diseases Model</h1>
+        </div>
+    </div>
 </header>
 <div class="row">
     <div class="col col-12 col-sm">
-        <p>Step:</p>
-        <q-btn :label="step_button_label" v-model="but" v-on:click="but=but+1" :color="red"></q-btn>
-        <q-btn :label="reset_button_label" v-model="reset" v-on:click="reset=reset+1" :color="green"></q-btn>
-    </div>
-</div>
-<div class="row">
-    <div class="col col-12 col-sm">
-        <h5>amount of agents<br /></h5>
-        <q-slider v-model="agents_amount" :min="min" :max="max_agents"></q-slider>
-        <p v-text="value_agents">value agents</p>
-        <h5>pref. proportion of closed triads (alpha)<br /></h5>
-        <q-slider v-model="alpha" :min="min" :max="max1" :step="steps_small"></q-slider>
-        <p v-text="value_alpha">value alpha</p>
-        <h5>risk perception (r)<br /></h5>
-        <q-slider v-model="risk" :min="min" :max="two" :step="steps_small"></q-slider>
-        <p v-text="value_risk">value risk perception</p>
-        <h5>cost of direct connections (c2)</h5>
-        <q-slider v-model="cost2" :min="min" :max="max1" :step="steps_small"></q-slider>
-        <p v-text="value_cost2">value cost dir. connect.</p>
-        <h5>disease severity (sigma)</h5>
-        <q-slider v-model="σ" :min="two" :max="max_σ"></q-slider>
-        <p v-text="value_σ">value disease severity</p>
-        <h5>transmission rate (gamma)</h5>
-        <q-slider v-model="γ" :min="min" :max="max1" :step="steps_small"></q-slider>
-        <p v-text="value_γ">value transmission rate</p>
-        <h5>recovery time (tau)</h5>
-        <q-slider v-model="τ" :min="min1" :max="max_τ"></q-slider>
-        <p v-text="value_τ">value recovery time</p>
-        <h5>how many encounters per time step (Phi)</h5>
-        <q-slider v-model="Φ" :min="min1" :max="max_Φ"></q-slider>
-        <p v-text="value_Φ">value Phi</p>
+        <div class="row">
+            <div class="col col-12">
+                <h3>Einstellungen zu den Menschen in deinem Netzwerk:</h3>
+                <h5>Anzahl der Menschen im Netzwerk<br /></h5>
+                <q-slider v-model="agents_amount" :min="min" :max="max_agents"></q-slider><span id="i0mnzs" v-text="value_agents">value agents</span>
+                <h5>Ihre Risikowahrnehmung<br /></h5>
+                <q-slider v-model="risk" :min="min" :max="two" :step="steps_small"></q-slider><span v-text="value_risk" id="ilkgok">value risk</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <h3>Einstellungen zur Krankheit:</h3>
+                <h5>Wie ansteckend soll die Krankheit sein?</h5>
+                <q-slider v-model="sigma" :min="two" :max="max_σ"></q-slider><span v-text="value_σ" id="ivtatq">value disease severity</span>
+                <h5>Wie viele Zeitschritte dauert die Genesung?</h5>
+                <q-slider v-model="tau" :min="min1" :max="max_τ"></q-slider><span v-text="value_τ" id="iz7v5u">value recovery time</span>
+            </div>
+        </div>
+        <div class="row"><span id="ik0x4m"><b>Noch spezifischere Einstellungen:</b></span>
+            <p></p>
+            <q-btn-dropdown></q-btn-dropdown>
+        </div>
+        <div class="row">
+            <div class="col col-12">
+                <h5>Wieviele Begegnungen haben die Personen pro Zeitschritt?</h5>
+                <q-slider v-model="Phi" :min="min1" :max="max_Φ"></q-slider><span v-text="value_Φ" id="iyl2ay">value Phi</span>
+                <h5>Wie stark ist das Bedürfnis der Menschen nach Kontakten?<br /></h5>
+                <q-slider v-model="alpha" :min="min" :max="max1" :step="steps_small"></q-slider><span v-text="value_alpha" id="iooq8d">value alpha</span>
+                <h5>Wieviel Arbeit macht die Aufrechterhaltung von Kontakten?</h5>
+                <q-slider v-model="cost2" :min="min" :max="max1" :step="steps_small"></q-slider><span v-text="value_cost2" id="i9nawl">value cost2 </span>
+                <h5>Geschwindigkeit, in der sich die Krankheit ausbreitet</h5>
+                <q-slider v-model="gamma" :min="min" :max="max1" :step="steps_small"></q-slider><span v-text="value_γ" id="i45ixu">value transmission rate</span>
+            </div>
+        </div>
     </div>
     <div class="col col-12 col-sm st-module">
-        <p v-text="agents">agents list</p>
-        <p>information</p>
-        <ul>
-            <li>eins</li>
-            <li>z</li>
-        </ul>
-        <q-list>
-            <q-item>hallo</q-item>
-            <q-item></q-item>
-        </q-list>
+        <div class="row">
+            <q-btn :label="reset_button_label" v-model="reset" v-on:click="reset=reset+1" :color="red"></q-btn>
+            <q-btn :label="step_button_label" v-model="step" v-on:click="step=step+1" :color="green"></q-btn>
+            <q-space></q-space>
+            <div id="il7xj4"><span id="i5lg5i">Zeitschritte:</span></div>
+            <div><span v-text="timestep">T</span></div>
+            <q-space></q-space>
+            <div class="col-12 col-sm st-module">
+                <div id="ick8z"><span id="i9zrn"></span><span id="iyic5"></span>
+                    <div id="iw5b1"><span id="ibjv5">Susceptible:</span></div>
+                    <div id="ip5y5"><span id="ir33v">Infected:</span></div>
+                    <div id="i5eyf"><span id="ih1e2">Recovered:</span></div>
+                </div>
+            </div>
+            <div class="col-12 col-sm st-module">
+                <div id="ick8z-2"><span id="i9zrn-2"></span><span id="iyic5-2"></span>
+                    <div id="ip5y5-2"><span id="ir33v-2" v-text="susceptible">S</span></div>
+                    <div><span v-text="infected">I</span></div>
+                    <div id="i5eyf-2"><span id="ih1e2-2" v-text="recovered">R</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-12 col-sm st-module">
+                <p v-text="agents">agents list</p>
+            </div>
+        </div><svg></svg>
     </div>
 </div>
