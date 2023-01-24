@@ -3,6 +3,9 @@ var svg = d3.select("svg"),
 width = +svg.node().getBoundingClientRect().width,
 height = +svg.node().getBoundingClientRect().height;
 
+svg.append("g").attr("class", "links");
+svg.append("g").attr("class", "nodes");
+
 var graph, data1, data2;
 var link, node; // svg objects
 var simulation = d3.forceSimulation()
@@ -23,7 +26,8 @@ d3.json("model_new.json", function(error, _graph) {
 });
 
 function initializeDisplay() {
-
+    update(graph)
+    /*
     //add the links
     link = svg.append("g")
         .style("stroke", "#aaa")
@@ -39,10 +43,15 @@ function initializeDisplay() {
     .enter().append("circle")
         .attr("r", 10)
         .style("fill", function(d){ return color(d.health_status)})
+    .call(d3.drag() // call specific function when circle is dragged
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended));
 
     // node tooltip
     node.append("title")
-        .text(function(d) { return d.id; });
+        .text(function(d) { return "Agent-ID: "+d.id+ "\nInfection Duration: " + d.days_infected 
+        + "\nRisikowahrnehmung: "+ d.risk_perception });*/
 }
 
 
@@ -54,9 +63,14 @@ function initializeSimulation() {
     simulation
         .force("link", d3.forceLink()                               // This force provides links between nodes
             .id(function(d) { return d.id; })                       // This provide  the id of a node
-            .links(graph.links)                                    // and this the list of links
+            .links(graph.links)  
+            .distance(100)                                      // and this the list of links
         )
-        .force("charge", d3.forceManyBody().strength(-200))         // This adds repulsion between nodes. Play with the -400 for the repulsion strength
+        .force("charge", d3.forceManyBody()
+            .strength(-200)                                     // This adds repulsion between nodes. Play with the -400 for the repulsion strength
+            .distanceMin(30)
+            .distanceMax(200)
+        )         
         .force("center", d3.forceCenter(width / 2, height / 2))     // This force attracts nodes to the center of the svg area
         .on("tick", ticked);
 
@@ -81,7 +95,7 @@ function update(data) {
     graph = data;
 
     // Create the u variable for the links
-    var u = svg.selectAll("line ")
+    var u = svg.select(".links").selectAll(".link")
         .data(graph.links)
 
     // delete the links not in use anymore
@@ -94,6 +108,7 @@ function update(data) {
     u.enter()
         .append("line") // Add a new line for each new elements
             .style("stroke", "#aaa")
+            .attr("class", "link")
         .merge(u) // get the already existing elements as well
         .transition()
         .duration(1000)
@@ -102,10 +117,10 @@ function update(data) {
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
 
-    link = u;
+    link = svg.select(".links").selectAll(".link");
 
     // Create the u variable for the nodes
-    var u = svg.selectAll("circle")
+    var u = svg.select(".nodes").selectAll(".node")
         .data(graph.nodes)
 
     // delete the links not in use anymore
@@ -119,7 +134,19 @@ function update(data) {
         .append("circle") // Add a new line for each new elements
             .attr("r", 10)
             .style("fill", "#fff")
-            .attr("class", "nodes")
+            .attr("class", "node")
+            .call(d3.drag() // call specific function when circle is dragged
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended))
+            .on("dblclick",function(d){ //on double click 
+                console.log("dbclick agent" + d.id);
+                if (d.health_status == "S"){
+                    d.health_status = "I";
+                    //put({"infect": d.id});
+                    update(graph);
+                }
+            })
         .merge(u) // get the already existing elements as well
         .transition()
         .duration(1000) 
@@ -127,7 +154,12 @@ function update(data) {
         .attr("cy", function(d) { return d.y; })
         .style("fill", function(d){ return color(d.health_status)});
     
-    node = u;
+    node = svg.select(".nodes").selectAll(".node");
+    
+    // node tooltip
+    node.append("title")
+        .text(function(d) { return "Agent-ID: "+d.id+ "\nInfection Duration: " + d.days_infected 
+            + "\nRisikowahrnehmung: "+ d.risk_perception });
 
     initializeSimulation()
 
@@ -139,7 +171,27 @@ function color(status){
     else return "#8fbc8f" //R
 }
 
+
+//Dragn Drop
+function dragstarted(d) {
+    if (!d3.event.active) simulation.alphaTarget(.03).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
+  function dragged(d) {
+    d.fx = d3.event.x;
+    d.fy = d3.event.y;
+  }
+  function dragended(d) {
+    if (!d3.event.active) simulation.alphaTarget(.03);
+    d.fx = null;
+    d.fy = null;
+  }
+
+
 // API
+//request for the change named in the content e.g. "step"
+//response is the model after the change
 async function post(content){
     fetch('http://localhost:8000/data', {
         method: 'POST',
@@ -153,6 +205,20 @@ async function post(content){
     })
 }
 
+// request to change some param of the model 
+// content example {"infect": 5} or {param: value}
+// no response model expected
+async function put(content){
+    fetch('http://localhost:8000/data', {
+        method: 'PUT',
+        headers: {},
+        body: content
+    })
+    .then(response => response.json())
+    .then(response => console.log(JSON.stringify(response)))
+}
+
+//request for the current model
 async function get(){
     await fetch('http://localhost:8000/data')
     .then((response) => response.json())
