@@ -21,25 +21,17 @@
 
     <!-- Main -->
     <main>
-        <div id="top-row">
-            <h3>Einstellungen zu den Menschen in deinem Netzwerk:</h3>
-        </div>
-        <div class="second-row"> 
-            <div class = "col-params">
-                <div class = "col-param">
+        <h3>Einstellungen zu den Menschen in deinem Netzwerk:</h3>
+        <div class="second-row">
+            <div class="col col-params">
+                <div class="col col-param">
                     <div>
                         <label>Anzahl der Menschen im Netzwerk:</label>
                         <span id="agents-amount">20</span>
                     </div>
                     <input type="range" class="slider" id="agent-slider" value="20" min="2" max="100" onchange="updateTextInput(this.value, 'agents-amount'); updateMaxValue(this.value)">
-                        <!-- or this with input option 
-                        <form>
-                            <input type="range" name="amountRange" min="2" max="100" value="20" oninput="this.form.amountInput.value=this.value" />
-                            <input type="number" name="amountInput" min="2" max="100" value="20" oninput="this.form.amountRange.value=this.value" />
-                        </form>
-                        -->
-                    <label>Ihre Risikowahrnehmung</label>
-                    <input type="range" class="slider" id="risk-slider" value="0.5" min="0" max="2" step="0.1" onchange="updateTextInput(this.value, 'risk')">
+                    <label>Ihre Risikowahrnehmung:</label>
+                    <input type="range" class="slider" id="risk-slider" value="0.5" min="0" max="2" step="0.1"> <!--onchange="updateTextInput(this.value, 'risk')"-->
                     <div class="row">
                         <span>niedrig</span>
                         <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
@@ -47,60 +39,61 @@
                     </div>
                     <!--<span id="risk">0.5</span>-->
                     <button class="param-buttons">Neue Simulation starten</button>
-                    <label>Wie stark ist ihr Bedürfnis nach Kontakten?<br /></label>
-                    <input type="range" class="slider" id="alpha-slider" value="0.75" min="0" max="1" step="0.1" onchange="updateTextInput(this.value, 'alpha'); changeVar(this.value, 'alpha')">
+                    <label>Ihr Bedürfnis nach Kontakten?</label>
+                    <input type="range" class="slider" id="alpha-slider" value="0.75" min="0" max="1" step="0.1" onchange="changeVar(this.value, 'alpha')"> <!--updateTextInput(this.value, 'alpha');-->
                     <div class="row">
                         <span>gering</span>
                         <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
                         <span>stark</span>
                     </div>
-                    <div>
-                        <label>Begegnungen jeder Person pro Zeitschritt:</label>
-                        <span id="phi">10</span>
-                    </div>
-                    <input type="range" class="slider" id="phi-slider" value="10" min="0" max="19" onchange="updateTextInput(this.value, 'phi'); changeVar(this.value, 'phi')">
                     <!--<span id="alpha">0.75</span>-->
                     <label>Wieviel Arbeit macht die Aufrechterhaltung von Kontakten?</label>
-                    <input type="range" class="slider" id="c2-slider" value="0.1" min="0" max="155" step="0.1" onchange="updateTextInput(this.value, 'c2'); changeVar(this.value, 'c2')">
+                    <input type="range" class="slider" id="c2-slider" value="0.1" min="0" max="1" step="0.1" onchange="changeVar(this.value, 'c2')"> <!--updateTextInput(this.value, 'c2');-->
                     <div class="row">
                         <span>wenig</span>
                         <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
                         <span>viel</span>
                     </div>
                     <!--<span id="c2">0.1</span>-->
+                    <div>
+                        <label>Begegnungen jeder Person pro Zeitschritt:</label>
+                        <span id="phi">10</span>
+                    </div>
+                    <input type="range" class="slider" id="phi-slider" value="10" min="0" max="19" onchange="updateTextInput(this.value, 'phi'); changeVar(this.value, 'phi')">
                 </div>
                 <h3>Einstellungen zur Krankheit:</h3>
-                <div class = "col-param">
-                    <label>Wie ansteckend soll die Krankheit sein?</label>
-                    <input type="range" class="slider" id="sigma-slider" value="5" min="2" max="10" onchange="updateTextInput(this.value, 'sigma'); changeVar(this.value, 'sigma')">
-                    <div class="row">
-                        <span>wenig</span>
-                        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-                        <span>stark</span>
-                    </div>
-                    <!--<span id="sigma">5</span>-->
-                    <div>
-                        <label>Ansteckungsrisiko:</label>
-                        <span id="gamma">50%</span>
-                    </div>
-                    <input type="range" class="slider" id="gamma-slider" value="0.5" min="0" max="1" step="0.1" onchange="updateTextInput(this.value, 'gamma'); changeVar(this.value, 'gamma')">
+                <div class = "col col-param">
                     <div>
                         <label>Zeitschritte bis zur Genesung:</label>
                         <span id="tau">10</span>
                     </div>
                     <input type="range" class="slider" id="tau-slider" value="10" min="1" max="50" onchange="updateTextInput(this.value, 'tau'); changeVar(this.value, 'tau')">
+                    <label>Wie ansteckend soll die Krankheit sein?</label>
+                    <input type="range" class="slider" id="sigma-slider" value="5" min="2" max="10" onchange="changeVar(this.value, 'sigma')"> <!--updateTextInput(this.value, 'sigma');-->
+                    <div class="row">
+                        <span>wenig</span>
+                        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                        <span>sehr</span>
+                    </div>
+                    <!--<span id="sigma">5</span>-->
+                    <div>
+                        <label>Ansteckunsrisiko:</label>
+                        <span id="gamma">50%</span>
+                    </div>
+                    <input type="range" class="slider" id="gamma-slider" value="0.5" min="0" max="1" step="0.1" onchange="changeVar(this.value, 'gamma')"> <!--updateTextInput(this.value, 'gamma');-->
                     <button class="param-buttons" onclick="reset()">Zurück zu Ausgangs-Werten</button>
                 </div>
             </div>
             <div class="col col-graph">
-                <div class="second-row">
+                <div>
                     <button class="button-step" onclick="post('step')">1 Zeitschritt</button>
+                    <button id="play-btn" onclick="play()">▶</button>
                     <span id="timestep-label">Zeitschritte:</span>
                     <span id="timestep">0</span>
 
                     <button id="test" onclick="get()">get</button>
                     <button onclick="update(data1)">Dataset 1</button>
-                    <button onclick="update(data2)">Dataset 2</button> 
+                    <button onclick="update(data2)">Dataset 2</button>
                 </div>
                 <svg></svg>
             </div>

@@ -32,5 +32,5 @@ function reset() {
     document.getElementById('c2-slider').value = 0.1;
     document.getElementById('c2').textContent = 0.1;
     document.getElementById('gamma-slider').value = 0.5;
-    document.getElementById('gamma').textContent = 0.5;
+    document.getElementById('gamma').textContent = '50%';
 }

@@ -189,7 +189,7 @@ async function post(content){
     })
     .then(response => response.json())
     .then(response => {
-        console.log(JSON.stringify(response));
+        //console.log(JSON.stringify(response));
         update(response)
     })
 }
@@ -214,6 +214,27 @@ async function get(){
     .then((data) => {console.log(data); update(data)});
 }
 
+//method calls from html
 function changeVar(value, name){
     put("{\""+name+"\" : "+ value +"}");
+}
+
+let interval;
+function play(){
+    d3.select("#play-btn")
+        .text("⏸")
+        .attr("onClick", "pause()");
+
+    interval = window.setInterval(() => {
+        post("step");
+        console.log("Timeout: step")
+    }, 3000)
+}
+function pause(){
+    window.clearInterval(interval)
+    console.log("stopped")
+
+    d3.select("#play-btn")
+        .text("▶")
+        .attr("onClick", "play()");
 }

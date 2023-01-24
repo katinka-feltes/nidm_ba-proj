@@ -18,7 +18,6 @@ header {
 main {
     display: flex;
     flex-direction: column;
-    margin-bottom: 0.5em;
     padding-left: 1em;
 }
 footer {
@@ -51,12 +50,14 @@ label {
 }
 #timestep-label {
     margin-left: 0.75em;
-    margin-right: 0.2em;
+    margin-right: 0.1em;
 }
 /*Columns*/
-.col-param {
+.col {
     display: flex;
     flex-direction: column;
+}
+.col-param {
     background-color: #e9e9e9;
     border-radius: 5px 5px 5px 5px;
     width: 100%;
@@ -71,9 +72,6 @@ label {
     width: 30%
 }
 /*Rows*/
-#top-row {
-    justify-content: left;
-}
 .second-row {
     display: flex;
     flex-direction: row;
@@ -94,6 +92,7 @@ button {
     width: 155px;
     margin-left: 0.5em;
     border-radius: 5px;
+    margin-right: 0.75em;
 }
 .button-step:hover {
     background-color: rgba(34, 111, 141, 0.521);
