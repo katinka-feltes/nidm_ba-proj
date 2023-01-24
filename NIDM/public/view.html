@@ -21,6 +21,15 @@
 
     <!-- Main -->
     <main>
+        <div class="col col-graph">
+            <div>
+                <button class="button-step" onclick="post('step')">1 Zeitschritt</button>
+                <button onclick="get()">get</button>
+                <button onclick="update(data1)">Dataset 1</button>
+                <button onclick="update(data2)">Dataset 2</button>
+            </div>
+            <svg></svg>
+        </div>
         <div class = "col">
             <div class = "col col-param">
                 <h2>Einstellungen zu den Menschen in deinem Netzwerk:</h2>
@@ -63,15 +72,6 @@
                 <span id="gamma">0.5</span>
                 <button class="button-reset" onclick="reset()">Zurück zu Ausgangs-Werten</button>
             </div>
-        </div>
-        <div class="col col-graph">
-            <div>
-                <button class="button-step" onclick="post('step')">1 Zeitschritt</button>
-                <button onclick="get()">get</button>
-                <button onclick="update(data1)">Dataset 1</button>
-                <button onclick="update(data2)">Dataset 2</button>
-            </div>
-            <svg></svg>
         </div>
     </main>
 
