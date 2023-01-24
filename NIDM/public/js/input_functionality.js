@@ -1,10 +1,20 @@
 function updateTextInput(val, id) {
-    document.getElementById(id).textContent = val; 
+    if (id == 'gamma' ) {
+        document.getElementById(id).textContent = val*100 + "%";
+    } else {
+        document.getElementById(id).textContent = val; 
+    }
 }
 
 function updateMaxValue(val) {
     document.getElementById('phi-slider').max = val-1;
+    document.getElementById('phi').textContent = document.getElementById('phi-slider').value;
 }
+
+/* doesnt work yet
+function updateTimestep() {
+    document.getElementById('timestep').textContent = document.getElementById('timestep').textContent+1; 
+} */
 
 function reset() {
     document.getElementById('agent-slider').value = 20;
