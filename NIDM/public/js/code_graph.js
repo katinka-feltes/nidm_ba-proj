@@ -140,7 +140,7 @@ function update(data) {
                 console.log("dbclick agent" + d.id);
                 if (d.health_status == "S"){
                     d.health_status = "I";
-                    //put({"infect": d.id});
+                    put("{\"infect\": d.id}");
                     update(graph);
                 }
             })
@@ -167,22 +167,21 @@ function color(status){
     else return "#8fbc8f" //R
 }
 
-
 //Dragn Drop
 function dragstarted(d) {
     if (!d3.event.active) simulation.alphaTarget(.03).restart();
     d.fx = d.x;
     d.fy = d.y;
-  }
-  function dragged(d) {
+}
+function dragged(d) {
     d.fx = d3.event.x;
     d.fy = d3.event.y;
-  }
-  function dragended(d) {
+}
+function dragended(d) {
     if (!d3.event.active) simulation.alphaTarget(.03);
     d.fx = null;
     d.fy = null;
-  }
+}
 
 
 // API
@@ -205,10 +204,10 @@ async function post(content){
 // content example {"infect": 5} or {param: value}
 // no response model expected
 async function put(content){
-    fetch('http://localhost:8000/data', {
+    fetch('http://127.0.0.1:8000/data', {
         method: 'PUT',
         headers: {},
-        body: content
+        body: JSON.stringify(content)
     })
     .then(response => response.json())
     .then(response => console.log(JSON.stringify(response)))

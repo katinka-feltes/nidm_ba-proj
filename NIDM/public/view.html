@@ -33,6 +33,7 @@
                         <input type="number" name="amountInput" min="2" max="100" value="20" oninput="this.form.amountRange.value=this.value" />
                     </form>
                     -->
+                <button class="initialize-button">Neue Simulation starten</button>
                 <label>Ihre Risikowahrnehmung</label>
                 <input type="range" class="slider" id="risk-slider" value="0.5" min="0" max="2" step="0.1" onchange="updateTextInput(this.value, 'risk')">
                 <span id="risk">0.5</span>
@@ -46,10 +47,10 @@
                 <input type="range" class="slider" id="tau-slider" value="10" min="1" max="50" onchange="updateTextInput(this.value, 'tau')">
                 <span id="tau">10</span>
             </div>
+            <h3>Noch spezifischere Einstellungen:</h3>
             <div class = "col col-param">
-                <h2>Noch spezifischere Einstellungen:</h2>
                 <label>Wieviele Begegnungen haben die Personen pro Zeitschritt?</label>
-                <input type="range" class="slider" id="phi-slider" value="10" min="1" max="19" onchange="updateTextInput(this.value, 'phi')">
+                <input type="range" class="slider" id="phi-slider" value="10" min="0" max="19" onchange="updateTextInput(this.value, 'phi')">
                 <span id="phi">10</span>     
                 <label>Wie stark ist das Bedürfnis der Menschen nach Kontakten?<br /></label>
                 <input type="range" class="slider" id="alpha-slider" value="0.75" min="0" max="1" step="0.1" onchange="updateTextInput(this.value, 'alpha')">
@@ -77,7 +78,7 @@
     <!-- Footer -->
     <footer>
         <div>
-            <p>Created by <a href="https://github.com/katinka-feltes">Katinka Feltes</a> and <a href="https://github.com/hkuswik">Helen Kuswik</a></p>
+            <p id="footer-text">Created by <a href="https://github.com/katinka-feltes">Katinka Feltes</a> and <a href="https://github.com/hkuswik">Helen Kuswik</a></p>
         </div>
     </footer>
 

@@ -20,8 +20,8 @@ end
 route("/data", method = POST) do
   if(rawpayload() == "step")
     print("step")
-    new_model = Model.model_step!(m)
-    json(create_jsgraph(new_model))
+    Model.model_step!(m)
+    json(create_jsgraph(m))
   end
 end
 
@@ -33,7 +33,7 @@ route("/data", method = PUT) do
   json("done")
 end
 
-# GET response is teh current state of the model from SimulationsController
+# GET response is the current state of the model from SimulationsController
 route("/data", method = GET) do
   json(create_jsgraph(m))
 end
@@ -54,3 +54,5 @@ function create_jsgraph(model)
       "links" => links
   )
 end
+
+up()

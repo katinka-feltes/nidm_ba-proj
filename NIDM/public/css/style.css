@@ -1,24 +1,10 @@
+/*General*/
 body {
 	font-family: Tahoma, 'Segoe UI', sans-serif;
     color: #404142;
     font-size: 16px;
 	letter-spacing: 0.8px;
 }
-
-h1 {
-    font-size: 40px;
-	font-weight: 500;
-}
-
-h2 {
-    font-size: 20px;
-    margin-bottom: 1em;
-}
-
-h3 {
-    font-size: 16px
-}
-
 header {
     /* display: flex;
     justify-content: center;    if we want it centered*/
@@ -29,7 +15,6 @@ header {
     padding-bottom: 0.75em;
 	color: #fff;
 }
-
 main {
     margin-top: 2em;
     margin-bottom: 2.5em;
@@ -37,24 +22,36 @@ main {
     display: flex;
     flex-direction: row;
 }
-
 footer {
     display: flex;
-    align-items: center;
-    position: fixed;
+    justify-content: right;
     bottom: 0;
     right: 0;
     left: 0;
     background-color: #2a2a2a;
     color: #fff;
-    padding-top: 0.3em;
-    padding-left: 2em;
+    padding: 0.2em;
+    padding-right: 0.5em;
 }
-
 a:hover, a:focus, a:active, a:visited {
     text-decoration: none;
 }
-
+#footer-text {
+    font-size: 13px;
+}
+/*Typo*/
+h1 {
+    font-size: 40px;
+	font-weight: 500;
+}
+h2 {
+    font-size: 18px;
+    margin-bottom: 1em;
+}
+h3 {
+    font-size: 16px
+}
+/*Columns*/
 .col-param{
     display: flex;
     flex-direction: column;
@@ -67,45 +64,69 @@ a:hover, a:focus, a:active, a:visited {
     padding-bottom: 1px;
     margin-bottom: 0.5em;
 }
-
 .col-graph {
     padding-left: 2em;
 }
-
+/*Buttons*/
 button {
     border-radius: 8px;
     border-width: 0;
+    margin: 0.5em;
 }
-
 .button-step {
     background-color: #184e64;
     color: white;
 }
-
 .button-step:hover{
     background-color: rgba(34, 111, 141, 0.521);
 }
-
 .button-reset {
-    background-color: #801818;
-    color: white;
-    margin: 0.5em;
+    background-color: #f0f0f0;
 }
-
 .button-reset:hover {
     background-color: #EE2c2c;
+    color: white;
 }
-
-.slider {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    height: 10px;
-    border-radius: 5px;
-    background: #d7dcdf;
-    outline: none;
-    padding: 0;
+.initialize-button {
+    background-color: #f0f0f0;
 }
-
+.initialize-button:hover {
+    background-color: #EE2c2c;
+    color: white;
+}
+/*Slider*/
+input[type="range"] {
+    background-color: lightgrey;
+}
 .slider-value {
     margin-bottom: 2em;
+}
+/*Slider - FF*/
+input[type="range"]::-moz-range-progress {
+    background-color: white;
+    opacity: 40%;
+    height: 8px;
+    border-radius: 5px;
+}
+input[type="range"]::-moz-range-track {  
+    background: darkgrey;
+    height: 8px;
+    border-radius: 5px;
+}
+#sigma-slider::-moz-range-track {  
+    background: linear-gradient(to right, #57b02a, #e3dc44, #ffa860, #ff5c5c);
+}
+#risk-slider::-moz-range-track {  
+    background: linear-gradient(to right, #57b02a, #e3dc44, #ffa860, #ff5c5c);
+}
+#c2-slider::-moz-range-track {
+    background: linear-gradient(to right, #57b02a, #e3dc44, #ffa860, #ff5c5c);
+}
+#gamma-slider::-moz-range-track {
+    background: linear-gradient(to right, #57b02a, #e3dc44, #ffa860, #ff5c5c);
+}
+/*Graph*/
+svg {
+    width: 1255px;
+    height: 800px;
 }
