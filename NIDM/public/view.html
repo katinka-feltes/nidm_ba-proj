@@ -27,11 +27,12 @@
                 <label>Anzahl der Menschen im Netzwerk</label>
                 <input type="range" class="slider" id="agent-slider" value="20" min="2" max="100" onchange="updateTextInput(this.value, 'agents-amount'), updateMaxValue(this.value)">
                 <span id="agents-amount">20</span>
-                    <!-- or this with input option -->
+                    <!-- or this with input option 
                     <form>
                         <input type="range" name="amountRange" min="2" max="100" value="20" oninput="this.form.amountInput.value=this.value" />
                         <input type="number" name="amountInput" min="2" max="100" value="20" oninput="this.form.amountRange.value=this.value" />
                     </form>
+                    -->
                 <label>Ihre Risikowahrnehmung</label>
                 <input type="range" class="slider" id="risk-slider" value="0.5" min="0" max="2" step="0.1" onchange="updateTextInput(this.value, 'risk')">
                 <span id="risk">0.5</span>
@@ -59,12 +60,12 @@
                 <label>Geschwindigkeit, in der sich die Krankheit ausbreitet</label>
                 <input type="range" class="slider" id="gamma-slider" value="0.5" min="0" max="1" step="0.1" onchange="updateTextInput(this.value, 'gamma')">
                 <span id="gamma">0.5</span>
+                <button class="button-reset" onclick="reset()">Zurück zu Ausgangs-Werten</button>
             </div>
         </div>
         <div class="col col-graph">
             <div>
                 <button class="button-step" onclick="post('step')">1 Zeitschritt</button>
-                <button class="button-reset" onclick="reset()">Zurück zu default-Werten</button>
                 <button onclick="get()">get</button>
                 <button onclick="update(data1)">Dataset 1</button>
                 <button onclick="update(data2)">Dataset 2</button>

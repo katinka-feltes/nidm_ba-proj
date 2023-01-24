@@ -1,5 +1,5 @@
 body {
-	font-family: 'Segoe UI', Verdana, sans-serif;
+	font-family: Tahoma, 'Segoe UI', sans-serif;
     color: #404142;
     font-size: 16px;
 	letter-spacing: 0.8px;
@@ -20,6 +20,8 @@ h3 {
 }
 
 header {
+    /* display: flex;
+    justify-content: center;    if we want it centered*/
     background: #184e64;
 	padding: 0.75em;
     padding-left: 2em;
@@ -82,6 +84,16 @@ button {
 
 .button-step:hover{
     background-color: rgba(34, 111, 141, 0.521);
+}
+
+.button-reset {
+    background-color: #801818;
+    color: white;
+    margin: 0.5em;
+}
+
+.button-reset:hover {
+    background-color: #EE2c2c;
 }
 
 .slider {

@@ -57,7 +57,6 @@ function initializeSimulation() {
         .force("charge", d3.forceManyBody().strength(-200))         // This adds repulsion between nodes. Play with the -400 for the repulsion strength
         .force("center", d3.forceCenter(width / 2, height / 2))     // This force attracts nodes to the center of the svg area
         .on("tick", ticked);
-
 }
 
 // update the display positions after each simulation tick
