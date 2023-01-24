@@ -188,7 +188,7 @@ function model_step!(model::ABM)
     disease_dynamics!(model)
     network_formation!(model)
 
-    visualize(model)
+    #visualize(model)
 end
 
 function set_property!(property_name::Symbol, value, model::ABM)

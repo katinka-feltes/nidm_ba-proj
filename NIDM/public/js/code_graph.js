@@ -108,11 +108,7 @@ function update(data) {
             .attr("class", "link")
         .merge(u) // get the already existing elements as well
         .transition()
-        .duration(1000)
-        .attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
+        .duration(1000);
 
     link = svg.select(".links").selectAll(".link");
 
@@ -140,15 +136,13 @@ function update(data) {
                 console.log("dbclick agent" + d.id);
                 if (d.health_status == "S"){
                     d.health_status = "I";
-                    put("{\"infect\": d.id}");
+                    put("{\"infect\" : "+ d.id +"}"); //`{"infect": ` + d.id + `}`);
                     update(graph);
                 }
             })
         .merge(u) // get the already existing elements as well
         .transition()
         .duration(1000) 
-        .attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; })
         .style("fill", function(d){ return color(d.health_status)});
     
     node = svg.select(".nodes").selectAll(".node");
@@ -207,7 +201,7 @@ async function put(content){
     fetch('http://127.0.0.1:8000/data', {
         method: 'PUT',
         headers: {},
-        body: JSON.stringify(content)
+        body: content//JSON.stringify(content)
     })
     .then(response => response.json())
     .then(response => console.log(JSON.stringify(response)))

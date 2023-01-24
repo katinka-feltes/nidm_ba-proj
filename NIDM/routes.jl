@@ -2,6 +2,7 @@ using Genie
 using Genie.Router, Genie.Requests, Genie.Renderer.Json
 #using .SimulationsController
 using .Model
+import JSON
 
 #route("/agents", SimulationsController.agents)
 
@@ -27,10 +28,17 @@ end
 
 # PUT response from the server
 route("/data", method = PUT) do
-  println("raw", rawpayload())
-  print(jsonpayload())#["infect"])
-  print("bye")
-  json("done")
+  dict = JSON.parse(rawpayload())
+  # infect the given agent
+  agentToInfect = get(dict, "infect", false)
+  agentToInfect != false && Model.infect!(m[agentToInfect]) == 'I' && return json("infected")
+
+  # else change the property
+  for prop in keys(dict)
+    m.properties[Symbol(prop)] = dict[prop]
+    json("Set ", prop, "to", dict[prop])
+  end
+  json("nothing done")
 end
 
 # GET response is the current state of the model from SimulationsController
