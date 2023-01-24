@@ -36,7 +36,7 @@ route("/data", method = PUT) do
   # else change the property
   for prop in keys(dict)
     m.properties[Symbol(prop)] = dict[prop]
-    json("Set ", prop, "to", dict[prop])
+    return json("Set $prop to  $(dict[prop])")
   end
   json("nothing done")
 end

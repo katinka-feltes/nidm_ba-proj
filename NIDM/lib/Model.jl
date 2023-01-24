@@ -14,23 +14,23 @@ end
 ## SOCIAL BENEFITS
 b1 = 1.0 # benefit of direct connections
 b2 = 0.5 # benefit of closed triad
-α = 0.5 # preferred proportion of closed triads [0, 1]
+alpha = 0.5 # preferred proportion of closed triads [0, 1]
 
 ## SOCIAL COSTS
 c1 = 0.2 # cost of direct connections
 c2 = 0.55 # marginal cost of direct connections (∈ ℝ_0+)
 
 ## DISEASE PROPERTIES
-σ = 5 # disease severity (>1)
-γ = 0.5 # transmission rate [0, 1]
-τ = 10 # recovery time (time steps) (>0)
+sigma = 5 # disease severity (>1)
+gamma = 0.5 # transmission rate [0, 1]
+tau = 10 # recovery time (time steps) (>0)
 
 ## NETWORK PROPERTIES
-Ψ = 0.4 # proportion of ɸ at distance 1
-ξ = 0.2 # proportion of ɸ at distance 2 """
-function initialize_model(; number_of_agents = 30, α = 0.5, c2 = 0.55, σ = 5, γ = 0.5, τ = 10, r = 0.5, Φ = 10, seed=0)
+psi = 0.4 # proportion of ɸ at distance 1
+xi = 0.2 # proportion of ɸ at distance 2 """
+function initialize_model(; number_of_agents = 30, alpha = 0.5, c2 = 0.55, sigma = 5, gamma = 0.5, tau = 10, r = 0.5, phi = 10, seed=0)
 
-    function phi(p::Number) # number of agents to evaluate per time step
+    function calc_phi(p::Number) # number of agents to evaluate per time step
         m = min(p, 20)
         m >= number_of_agents && return number_of_agents-1
         return m
@@ -40,17 +40,17 @@ function initialize_model(; number_of_agents = 30, α = 0.5, c2 = 0.55, σ = 5, 
         :graph => SimpleGraph(),
         :b1 => 1.0, 
         :b2 => 0.5, 
-        :α => α, 
+        :alpha => alpha, 
         :c1 => 0.2, 
         :c2 => c2, 
-        :σ => σ,
-        :γ => γ,
-        :τ => τ, 
+        :sigma => sigma,
+        :gamma => gamma,
+        :tau => tau, 
         :number_of_agents => number_of_agents,
         :r => r,
-        :Φ => phi(Φ),
-        :Ψ => 0.4,
-        :ξ => 0.2
+        :phi => calc_phi(phi),
+        :psi => 0.4,
+        :xi => 0.2
     )
 
     model = ABM(Human, nothing; properties, rng = Random.MersenneTwister(seed))
@@ -98,15 +98,15 @@ function utility(agent, model::ABM; graph = model.graph)
          x = triangles(graph, agent.id) / possible_triads(length(neighbors(graph, agent.id)))
     end 
 
-    benefit = model.b1 * t + model.b2 * (1 - 2 * abs(x - model.α)/max(model.α, 1-model.α))
+    benefit = model.b1 * t + model.b2 * (1 - 2 * abs(x - model.alpha)/max(model.alpha, 1-model.alpha))
 
     cost = model.c1 * t + model.c2 * t^2
 
     function disease()
         if agent.health_status == 'S'
-            return model.σ^agent.risk_perception * π^(2-agent.risk_perception)
+            return model.sigma^agent.risk_perception * π^(2-agent.risk_perception)
         elseif agent.health_status == 'I'
-            return model.σ
+            return model.sigma
         else
             return 0
         end
@@ -119,12 +119,12 @@ function disease_dynamics!(model::ABM)
     for agent in allagents(model)
         # if i is susceptible, compute whether i gets infected
         if agent.health_status == 'S'  
-            infection_probability = 1 - (1 - model.γ)^infected_neighbors(agent, model)
+            infection_probability = 1 - (1 - model.gamma)^infected_neighbors(agent, model)
             rand(model.rng) < infection_probability && (agent.health_status = 'I') # rand(model.rng) returns a number in [0,1)
-        # if i is infected, compute whether agent recovers: passed time steps since infection ≥ τ.
+        # if i is infected, compute whether agent recovers: passed time steps since infection ≥ tau.
         elseif agent.health_status == 'I'
             agent.days_infected += 1
-            agent.days_infected >= model.τ && (agent.health_status = 'R')
+            agent.days_infected >= model.tau && (agent.health_status = 'R')
         end
     end
 end
@@ -137,19 +137,19 @@ function network_formation!(model::ABM)
         agent = random_agent(model, x -> x ∉ processed_agents)
         push!(processed_agents, agent)
         encounters = Set([])
-        # add agents to encounters until it consists of Φ agents
-        while length(encounters) < model.Φ
-            # with probability Ψ: a random neighbor of current agent (distance 1)​
+        # add agents to encounters until it consists of phi agents
+        while length(encounters) < model.phi
+            # with probability psi: a random neighbor of current agent (distance 1)​
             for neighbor in neighbors(model.graph, agent.id)
-                rand(model.rng) < model.Ψ && push!(encounters, neighbor)
+                rand(model.rng) < model.psi && push!(encounters, neighbor)
             end
-            # with probability ξ: a random neighbor‘s neighbor of current agent (distance 2)
+            # with probability xi: a random neighbor‘s neighbor of current agent (distance 2)
             for neighbor in distance2_neighbors(model.graph, agent.id)
-                neighbor != agent.id && rand(model.rng) < model.ξ && push!(encounters, neighbor)
+                neighbor != agent.id && rand(model.rng) < model.xi && push!(encounters, neighbor)
             end
-            # with probability 1 – Ψ – ξ: a random agent from the entire population (excluding current agent)
+            # with probability 1 – psi – xi: a random agent from the entire population (excluding current agent)
             for person in allagents(model)
-                person != agent && rand(model.rng) < (1 - model.Ψ - model.ξ) && push!(encounters, person.id)
+                person != agent && rand(model.rng) < (1 - model.psi - model.xi) && push!(encounters, person.id)
             end
         end
         # repeat until all agents in encounters (randomized) have been processed

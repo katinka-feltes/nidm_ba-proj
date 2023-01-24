@@ -213,3 +213,7 @@ async function get(){
     .then((response) => response.json())
     .then((data) => {console.log(data); update(data)});
 }
+
+function changeVar(value, name){
+    put("{\""+name+"\" : "+ value +"}");
+}
