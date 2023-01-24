@@ -1,11 +1,16 @@
+using Genie
 using Genie.Router, Genie.Requests, Genie.Renderer.Json
 using .SimulationsController
 using .Model
 
 route("/agents", SimulationsController.agents)
 
-route("/") do 
+route("/g") do 
   serve_static_file("graph.html") 
+end 
+
+route("/") do 
+  serve_static_file("view.html") 
 end 
 
 #API
@@ -22,7 +27,6 @@ end
 route("/data", method = GET) do
   json(create_jsgraph(SimulationsController.model))
 end
-
 
 # Function to create a Dict that is in the correct form for javascript
 function create_jsgraph(model)

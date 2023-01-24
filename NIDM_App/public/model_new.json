@@ -1,0 +1,18 @@
+{
+    "nodes": [
+      {"id": "1", "health_status":"R"},
+      {"id": "2", "health_status":"R"},
+      {"id": "3", "health_status":"S"},
+      {"id": "4", "health_status":"I"},
+      {"id": "5", "health_status":"R"}
+    
+    ],
+    "links": [
+      {"source": "1", "target": "2"},
+      {"source": "2", "target": "3"},
+      {"source": "3", "target": "4"},
+      {"source": "3", "target": "5"},
+      {"source": "3", "target": "1"}
+
+    ]
+  }

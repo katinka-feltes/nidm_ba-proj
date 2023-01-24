@@ -1,0 +1,111 @@
+body {
+	font-family: Tahoma, 'Segoe UI', sans-serif;
+    color: #404142;
+    font-size: 16px;
+	letter-spacing: 0.8px;
+}
+
+h1 {
+    font-size: 40px;
+	font-weight: 500;
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 1em;
+}
+
+h3 {
+    font-size: 16px
+}
+
+header {
+    /* display: flex;
+    justify-content: center;    if we want it centered*/
+    background: #184e64;
+	padding: 0.75em;
+    padding-left: 2em;
+    padding-top: 0.3em;
+    padding-bottom: 0.75em;
+	color: #fff;
+}
+
+main {
+    margin-top: 2em;
+    margin-bottom: 2.5em;
+    padding-left: 2em;
+    display: flex;
+    flex-direction: row;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #2a2a2a;
+    color: #fff;
+    padding-top: 0.3em;
+    padding-left: 2em;
+}
+
+a:hover, a:focus, a:active, a:visited {
+    text-decoration: none;
+}
+
+.col-param{
+    display: flex;
+    flex-direction: column;
+    background-color: lightgrey;
+    border-radius: 5px 5px 5px 5px;
+    width: 500px;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    margin-bottom: 0.5em;
+}
+
+.col-graph {
+    padding-left: 2em;
+}
+
+button {
+    border-radius: 8px;
+    border-width: 0;
+}
+
+.button-step {
+    background-color: #184e64;
+    color: white;
+}
+
+.button-step:hover{
+    background-color: rgba(34, 111, 141, 0.521);
+}
+
+.button-reset {
+    background-color: #801818;
+    color: white;
+    margin: 0.5em;
+}
+
+.button-reset:hover {
+    background-color: #EE2c2c;
+}
+
+.slider {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    height: 10px;
+    border-radius: 5px;
+    background: #d7dcdf;
+    outline: none;
+    padding: 0;
+}
+
+.slider-value {
+    margin-bottom: 2em;
+}
