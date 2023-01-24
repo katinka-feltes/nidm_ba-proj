@@ -1,10 +1,10 @@
-var svg = d3.select("svg"),
-width = +svg.node().getBoundingClientRect().width,
+var svg = d3.select("svg");
+width = +svg.node().getBoundingClientRect().width;
 height = +svg.node().getBoundingClientRect().height;
 
 var graph, data1, data2;
 var link, node; // svg objects
-var simulation = d3.forceSimulation()
+var simulation = d3.forceSimulation();
 
 // load the data
 d3.json("model.json", function(error, _graph) {
@@ -128,7 +128,6 @@ function update(data) {
     node = u;
 
     initializeSimulation()
-
 }    
 
 function color(status){
@@ -139,7 +138,7 @@ function color(status){
 
 // API
 async function post(content){
-    fetch('http://localhost:8000/data', {
+    fetch('http://127.0.0.1:8000/data', {
         method: 'POST',
         headers: {},
         body: content
@@ -152,7 +151,7 @@ async function post(content){
 }
 
 async function get(){
-    await fetch('http://localhost:8000/data')
+    await fetch('http://127.0.0.1:8000/data')
     .then((response) => response.json())
     .then((data) => {console.log(data); update(data)});
 }

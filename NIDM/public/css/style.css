@@ -77,3 +77,13 @@ button {
 .button-step:hover{
     background-color: rgba(34, 111, 141, 0.521);
 }
+
+.slider {
+    margin-top: 0.5em;
+    margin-bottom: 2em;
+    height: 10px;
+    border-radius: 5px;
+    background: #d7dcdf;
+    outline: none;
+    padding: 0;
+}

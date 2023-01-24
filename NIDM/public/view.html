@@ -24,28 +24,32 @@
         <div class = "col col-param">
             <div>
                 <h2>Einstellungen zu den Menschen in deinem Netzwerk:</h2>
-                <h3>Anzahl der Menschen im Netzwerk</h3>
-                
-                <h3>Ihre Risikowahrnehmung</h3>
-                
+                <label>Anzahl der Menschen im Netzwerk</label>
+                <input type="range" class="slider" id="agents_amount" min="2" max="100">
+                <div class="range-slider">
+                    <input class="range-slider__range" type="range" value="20" min="2" max="100" step="1">
+                    <span class="range-slider__value">0</span>
+                </div>
+                <label>Ihre Risikowahrnehmung</label>
+                <input type="range" class="slider" id="risk" min="0" max="2" step="0.1">
             </div>
             <div>
                 <h2>Einstellungen zur Krankheit:</h2>
-                <h3>Wie ansteckend soll die Krankheit sein?</h3>
-                
-                <h3>Wie viele Zeitschritte dauert die Genesung?</h3>
-                
+                <label>Wie ansteckend soll die Krankheit sein?</label>
+                <input type="range" class="slider" id="sigma" min="2" max="10">
+                <label>Wie viele Zeitschritte dauert die Genesung?</label>
+                <input type="range" class="slider" id="tau" min="1" max="50">
             </div>
             <h2>Noch spezifischere Einstellungen:</h2>
             <div>
-                <h3>Wieviele Begegnungen haben die Personen pro Zeitschritt?</h3>
-                        
-                <h3>Wie stark ist das Bedürfnis der Menschen nach Kontakten?<br /></h3>
-                
-                <h3>Wieviel Arbeit macht die Aufrechterhaltung von Kontakten?</h3>
-                
-                <h3>Geschwindigkeit, in der sich die Krankheit ausbreitet</h3>
-                
+                <label>Wieviele Begegnungen haben die Personen pro Zeitschritt?</label>
+                <input type="range" class="slider" id="phi" min="1" max="20">       
+                <label>Wie stark ist das Bedürfnis der Menschen nach Kontakten?<br /></label>
+                <input type="range" class="slider" id="alpha" min="0" max="1" step="0.1">
+                <label>Wieviel Arbeit macht die Aufrechterhaltung von Kontakten?</label>
+                <input type="range" class="slider" id="c2" min="0" max="1" step="0.1">
+                <label>Geschwindigkeit, in der sich die Krankheit ausbreitet</label>
+                <input type="range" class="slider" id="gamma" min="0" max="1" step="0.1">
             </div>
         </div>
         <div class="col col-graph">
@@ -68,6 +72,7 @@
 
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="js/code_graph.js"></script>
+    <script src="js/input_functionality.js"></script>
 
 </body>
 
