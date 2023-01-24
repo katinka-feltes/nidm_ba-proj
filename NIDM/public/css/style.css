@@ -12,6 +12,7 @@ h1 {
 
 h2 {
     font-size: 20px;
+    margin-bottom: 1em;
 }
 
 h3 {
@@ -29,6 +30,7 @@ header {
 
 main {
     margin-top: 2em;
+    margin-bottom: 2.5em;
     padding-left: 2em;
     display: flex;
     flex-direction: row;
@@ -43,9 +45,8 @@ footer {
     left: 0;
     background-color: #2a2a2a;
     color: #fff;
-    padding-top: 0.75em;
+    padding-top: 0.3em;
     padding-left: 2em;
-    padding-bottom: 0.3em;
 }
 
 a:hover, a:focus, a:active, a:visited {
@@ -53,11 +54,16 @@ a:hover, a:focus, a:active, a:visited {
 }
 
 .col-param{
+    display: flex;
+    flex-direction: column;
     background-color: lightgrey;
     border-radius: 5px 5px 5px 5px;
     width: 500px;
-    padding: 0.75em;
-    padding-top: 0.3em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    margin-bottom: 0.5em;
 }
 
 .col-graph {
@@ -80,10 +86,14 @@ button {
 
 .slider {
     margin-top: 0.5em;
-    margin-bottom: 2em;
+    margin-bottom: 0.5em;
     height: 10px;
     border-radius: 5px;
     background: #d7dcdf;
     outline: none;
     padding: 0;
+}
+
+.slider-value {
+    margin-bottom: 2em;
 }

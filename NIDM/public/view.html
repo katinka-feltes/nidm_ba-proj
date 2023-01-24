@@ -21,40 +21,50 @@
 
     <!-- Main -->
     <main>
-        <div class = "col col-param">
-            <div>
+        <div class = "col">
+            <div class = "col col-param">
                 <h2>Einstellungen zu den Menschen in deinem Netzwerk:</h2>
                 <label>Anzahl der Menschen im Netzwerk</label>
-                <input type="range" class="slider" id="agents_amount" min="2" max="100">
-                <div class="range-slider">
-                    <input class="range-slider__range" type="range" value="20" min="2" max="100" step="1">
-                    <span class="range-slider__value">0</span>
-                </div>
+                <input type="range" class="slider" id="agent-slider" value="20" min="2" max="100" onchange="updateTextInput(this.value, 'agents-amount'), updateMaxValue(this.value)">
+                <span id="agents-amount">20</span>
+                    <!-- or this with input option -->
+                    <form>
+                        <input type="range" name="amountRange" min="2" max="100" value="20" oninput="this.form.amountInput.value=this.value" />
+                        <input type="number" name="amountInput" min="2" max="100" value="20" oninput="this.form.amountRange.value=this.value" />
+                    </form>
                 <label>Ihre Risikowahrnehmung</label>
-                <input type="range" class="slider" id="risk" min="0" max="2" step="0.1">
+                <input type="range" class="slider" id="risk-slider" value="0.5" min="0" max="2" step="0.1" onchange="updateTextInput(this.value, 'risk')">
+                <span id="risk">0.5</span>
             </div>
-            <div>
+            <div class = "col col-param">
                 <h2>Einstellungen zur Krankheit:</h2>
                 <label>Wie ansteckend soll die Krankheit sein?</label>
-                <input type="range" class="slider" id="sigma" min="2" max="10">
+                <input type="range" class="slider" id="sigma-slider" value="5" min="2" max="10" onchange="updateTextInput(this.value, 'sigma')">
+                <span id="sigma">5</span>
                 <label>Wie viele Zeitschritte dauert die Genesung?</label>
-                <input type="range" class="slider" id="tau" min="1" max="50">
+                <input type="range" class="slider" id="tau-slider" value="10" min="1" max="50" onchange="updateTextInput(this.value, 'tau')">
+                <span id="tau">10</span>
             </div>
-            <h2>Noch spezifischere Einstellungen:</h2>
-            <div>
+            <div class = "col col-param">
+                <h2>Noch spezifischere Einstellungen:</h2>
                 <label>Wieviele Begegnungen haben die Personen pro Zeitschritt?</label>
-                <input type="range" class="slider" id="phi" min="1" max="20">       
+                <input type="range" class="slider" id="phi-slider" value="10" min="1" max="19" onchange="updateTextInput(this.value, 'phi')">
+                <span id="phi">10</span>     
                 <label>Wie stark ist das Bedürfnis der Menschen nach Kontakten?<br /></label>
-                <input type="range" class="slider" id="alpha" min="0" max="1" step="0.1">
+                <input type="range" class="slider" id="alpha-slider" value="0.75" min="0" max="1" step="0.1" onchange="updateTextInput(this.value, 'alpha')">
+                <span id="alpha">0.75</span>
                 <label>Wieviel Arbeit macht die Aufrechterhaltung von Kontakten?</label>
-                <input type="range" class="slider" id="c2" min="0" max="1" step="0.1">
+                <input type="range" class="slider" id="c2-slider" value="0.1" min="0" max="1" step="0.1" onchange="updateTextInput(this.value, 'c2')">
+                <span id="c2">0.1</span>
                 <label>Geschwindigkeit, in der sich die Krankheit ausbreitet</label>
-                <input type="range" class="slider" id="gamma" min="0" max="1" step="0.1">
+                <input type="range" class="slider" id="gamma-slider" value="0.5" min="0" max="1" step="0.1" onchange="updateTextInput(this.value, 'gamma')">
+                <span id="gamma">0.5</span>
             </div>
         </div>
         <div class="col col-graph">
             <div>
                 <button class="button-step" onclick="post('step')">1 Zeitschritt</button>
+                <button class="button-reset" onclick="reset()">Zurück zu default-Werten</button>
                 <button onclick="get()">get</button>
                 <button onclick="update(data1)">Dataset 1</button>
                 <button onclick="update(data2)">Dataset 2</button>
@@ -73,7 +83,6 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="js/code_graph.js"></script>
     <script src="js/input_functionality.js"></script>
-
 </body>
 
 </html>
