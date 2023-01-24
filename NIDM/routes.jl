@@ -1,9 +1,11 @@
 using Genie
 using Genie.Router, Genie.Requests, Genie.Renderer.Json
-using .SimulationsController
+#using .SimulationsController
 using .Model
 
-route("/agents", SimulationsController.agents)
+#route("/agents", SimulationsController.agents)
+
+m = Model.initialize_model(number_of_agents = 24, α = 0.75, c2 = 0.1, Φ = 10)
 
 route("/g") do 
   serve_static_file("graph.html") 
@@ -18,14 +20,22 @@ end
 route("/data", method = POST) do
   if(rawpayload() == "step")
     print("step")
-    new_model = SimulationsController.step()
+    new_model = Model.model_step!(m)
     json(create_jsgraph(new_model))
   end
 end
 
+# PUT response from the server
+route("/data", method = PUT) do
+  println("raw", rawpayload())
+  print(jsonpayload())#["infect"])
+  print("bye")
+  json("done")
+end
+
 # GET response is teh current state of the model from SimulationsController
 route("/data", method = GET) do
-  json(create_jsgraph(SimulationsController.model))
+  json(create_jsgraph(m))
 end
 
 # Function to create a Dict that is in the correct form for javascript
