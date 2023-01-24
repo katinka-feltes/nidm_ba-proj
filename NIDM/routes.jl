@@ -6,7 +6,7 @@ import JSON
 
 #route("/agents", SimulationsController.agents)
 
-m = Model.initialize_model(number_of_agents = 24, α = 0.75, c2 = 0.1, Φ = 10)
+m = Model.initialize_model(number_of_agents = 24, alpha = 0.75, c2 = 0.1, phi = 10)
 
 route("/g") do 
   serve_static_file("graph.html") 
