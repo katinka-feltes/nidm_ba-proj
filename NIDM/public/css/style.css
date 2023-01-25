@@ -4,6 +4,7 @@ body {
     color: #404142;
     font-size: 16px;
 	letter-spacing: 0.8px;
+    height: 100%;
 }
 header {
     /* display: flex;
@@ -14,11 +15,13 @@ header {
     padding-top: 0.3em;
     padding-bottom: 0.75em;
 	color: #fff;
+    height: 20%;
 }
 main {
     display: flex;
     flex-direction: column;
     padding-left: 1em;
+    height: 70%;
 }
 footer {
     display: flex;
@@ -30,6 +33,7 @@ footer {
     color: #fff;
     padding: 0.3em;
     padding-right: 0.5em;
+    height: 9%;
 }
 a:hover, a:focus, a:active, a:visited {
     text-decoration: none;
