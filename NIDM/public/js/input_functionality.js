@@ -11,11 +11,6 @@ function updateMaxValue(val) {
     document.getElementById('phi').textContent = document.getElementById('phi-slider').value;
 }
 
-/* doesnt work yet
-function updateTimestep() {
-    document.getElementById('timestep').textContent = document.getElementById('timestep').textContent+1; 
-} */
-
 function reset() {
     document.getElementById('agent-slider').value = 20;
     document.getElementById('agents-amount').textContent = 20;

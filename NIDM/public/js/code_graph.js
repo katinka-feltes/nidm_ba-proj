@@ -9,6 +9,8 @@ var graph, data1, data2;
 var link, node; // svg objects
 var simulation = d3.forceSimulation();
 
+var timestep = 0;
+
 // load the data
 d3.json("model.json", function(error, _graph) {
 if (error) throw error;
@@ -226,6 +228,7 @@ function play(){
         .attr("onClick", "pause()");
 
     interval = window.setInterval(() => {
+        updateTimestep();
         post("step");
         console.log("Timeout: step")
     }, 3000)
@@ -237,4 +240,8 @@ function pause(){
     d3.select("#play-btn")
         .text("▶")
         .attr("onClick", "play()");
+}
+function updateTimestep() {
+    timestep += 1;
+    document.getElementById('timestep').textContent = timestep; 
 }
