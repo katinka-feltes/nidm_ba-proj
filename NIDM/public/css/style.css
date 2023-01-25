@@ -49,6 +49,9 @@ h1 {
 h3 {
     font-size: 16px
 }
+#people-settings {
+    width: 30%
+}
 label {
     margin-top: 1em;
 }
@@ -116,6 +119,38 @@ input[type="range"] {
 .slider-value {
     margin-bottom: 2em;
 }
+/*Slider - Chrome/Safari*/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    input[type="range"] {
+        -webkit-appearance: none;
+    }
+    input[type="range"]::-webkit-slider-runnable-track {
+        background-color: darkgrey;
+        height: 7px;
+        border-radius: 8px;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        border: none;
+        height: 18px;
+        width: 18px;
+        border-radius: 50%;
+        background: white;
+        margin-top: -4px;
+    }
+    #sigma-slider::-webkit-slider-runnable-track {  
+        background: linear-gradient(to right, #57b02a, #e3dc44, #ffa860, #ff5c5c);
+    }
+    #risk-slider::-webkit-slider-runnable-track {  
+        background: linear-gradient(to right, #57b02a, #e3dc44, #ffa860, #ff5c5c);
+    }
+    #c2-slider::-webkit-slider-runnable-track {
+        background: linear-gradient(to right, #57b02a, #e3dc44, #ffa860, #ff5c5c);
+    }
+    #gamma-slider::-webkit-slider-runnable-track {
+        background: linear-gradient(to right, #57b02a, #e3dc44, #ffa860, #ff5c5c);
+    }
+}
 /*Slider - FF*/
 input[type="range"]::-moz-range-progress {
     background-color: white;
@@ -127,6 +162,13 @@ input[type="range"]::-moz-range-track {
     background: darkgrey;
     height: 8px;
     border-radius: 5px;
+}
+input[type="range"]::-moz-range-thumb {  
+    background: white;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    border: none;
 }
 #sigma-slider::-moz-range-track {  
     background: linear-gradient(to right, #57b02a, #e3dc44, #ffa860, #ff5c5c);
