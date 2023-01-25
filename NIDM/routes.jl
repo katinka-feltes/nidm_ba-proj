@@ -35,7 +35,7 @@ route("/data", method = PUT) do
 
   # else change the property
   for prop in keys(dict)
-    m.properties[Symbol(prop)] = dict[prop]
+    Model.set_property!([Symbol(prop)], dict[prop], m)
     return json("Set $prop to  $(dict[prop])")
   end
   json("nothing done")
@@ -43,6 +43,7 @@ end
 
 # GET response is the current state of the model from SimulationsController
 route("/data", method = GET) do
+  global m = Model.initialize_model()
   json(create_jsgraph(m))
 end
 
