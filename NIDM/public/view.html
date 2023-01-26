@@ -30,7 +30,7 @@
                         <span id="agents-amount">20</span>
                     </div>
                     <input type="range" class="slider" id="agent-slider" value="20" min="2" max="100" onchange="updateTextInput(this.value, 'agents-amount'); updateMaxValue(this.value)">
-                    <label>Ihre Risikowahrnehmung:</label>
+                    <label>Ihre Risikowahrnehmung</label>
                     <input type="range" class="slider" id="risk-slider" value="0.5" min="0" max="2" step="0.1"> <!--onchange="updateTextInput(this.value, 'risk')"-->
                     <div class="row">
                         <span>niedrig</span>
@@ -39,7 +39,7 @@
                     </div>
                     <!--<span id="risk">0.5</span>-->
                     <button class="param-buttons" onclick="timestep=-1; get(); updateTimestep()">Neue Simulation starten</button>
-                    <label>Ihr Bedürfnis nach Kontakten?</label>
+                    <label>Ihr Bedürfnis nach Kontakten</label>
                     <input type="range" class="slider" id="alpha-slider" value="0.75" min="0" max="1" step="0.1" onchange="changeVar(this.value, 'alpha')"> <!--updateTextInput(this.value, 'alpha');-->
                     <div class="row">
                         <span>gering</span>
@@ -68,7 +68,7 @@
                         <span id="tau">10</span>
                     </div>
                     <input type="range" class="slider" id="tau-slider" value="10" min="1" max="50" onchange="updateTextInput(this.value, 'tau'); changeVar(this.value, 'tau')">
-                    <label>Wie ansteckend soll die Krankheit sein?</label>
+                    <label>Wie schwerwiegend ist die Krankheit?</label>
                     <input type="range" class="slider" id="sigma-slider" value="5" min="2" max="10" onchange="changeVar(this.value, 'sigma')"> <!--updateTextInput(this.value, 'sigma');-->
                     <div class="row">
                         <span>wenig</span>
@@ -85,14 +85,42 @@
                 </div>
             </div>
             <div class="col col-graph">
-                <div>
-                    <button class="button-step" onclick="post('step'); updateTimestep()">1 Zeitschritt</button>
-                    <button id="play-btn" onclick="play()">▶</button>
-                    <span id="timestep-label">Zeitschritte:</span>
-                    <span id="timestep">0</span>
+                <div class="graph-row">
+                    <div class="left-row">
+                        <button class="button-step" onclick="post('step'); updateTimestep()">1 Zeitschritt</button>
+                        <button id="play-btn" onclick="play()">▶</button>
+                        <span id="timestep-label">Zeitschritte:</span>
+                        <span id="timestep">0</span>
+                    </div>
+                    <div id="info">
+                        <span id="info-icon">&#x1F6C8;</span> <!--alternativ: &#9432; &#8505;-->
+                        <span id="infotext">Klicke eine Person an, um sie zu infizieren</span>
+                    </div>
+                    <span id="emptiness-right"></span>
+                    <div id="health-status">
+                        <div class="col">
+                            <div class="second-row">
+                                <span class="dot" id="sus-dot"></span>
+                                <span>Gesund:</span>
+                            </div>
+                            <div class="second-row">
+                                <span class="dot" id="inf-dot"></span>
+                                <span>Infiziert:</span>
+                            </div>
+                            <div class="second-row">
+                                <span class="dot" id="rec-dot"></span>
+                                <span>Genesen:</span>
+                            </div>
+                        </div>
+                        <div class="col-values">
+                            <span id="susceptible">20</span>
+                            <span id="infected">0</span>
+                            <span id="recovered">0</span>
+                        </div>
+                    </div>
 
-                    <button id="test" onclick="update(data1)">Dataset 1</button>
-                    <button onclick="update(data2)">Dataset 2</button>
+                    <!--<button id="test" onclick="update(data1)">Dataset 1</button>
+                    <button onclick="update(data2)">Dataset 2</button>-->
                 </div>
                 <svg></svg>
             </div>

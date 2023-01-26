@@ -35,7 +35,7 @@ route("/data", method = PUT) do
 
   # else change the property
   for prop in keys(dict)
-    Model.set_property!([Symbol(prop)], dict[prop], m)
+    Model.set_property!(Symbol(prop), dict[prop], m)
     return json("Set $prop to  $(dict[prop])")
   end
   json("nothing done")

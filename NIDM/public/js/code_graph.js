@@ -10,6 +10,9 @@ var link, node; // svg objects
 var simulation = d3.forceSimulation();
 
 var timestep = 0;
+var susceptible = 20;
+var infected = 0;
+var recovered = 0;
 
 // load the data
 d3.json("model.json", function(error, _graph) {

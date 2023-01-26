@@ -7,9 +7,7 @@ body {
     height: 100%;
 }
 header {
-    /* display: flex;
-    justify-content: center;  if we want it centered*/
-    background: #184e64; 
+    background: #184e64;
 	padding: 0.75em;
     padding-left: 1em;
     padding-top: 0.3em;
@@ -26,13 +24,9 @@ main {
 footer {
     display: flex;
     justify-content: center;
-    bottom: 0;
-    right: 0;
-    left: 0;
     background-color: #525252;
     color: #fff;
-    padding: 0.3em;
-    padding-right: 0.5em;
+    padding: 0.2em;
     height: 9%;
 }
 a:hover, a:focus, a:active, a:visited {
@@ -78,10 +72,33 @@ label {
 .col-params {
     width: 30%
 }
+.col-values {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+#health-status {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    width: 10%;;
+}
 /*Rows*/
 .second-row {
     display: flex;
     flex-direction: row;
+}
+.graph-row {
+    display: flex;
+    justify-content: row;
+    height: 4%;
+}
+#emptiness-right{
+    width: 30%;
+}
+.left-row {
+    justify-content: left;
+    width: 30%;
 }
 .row {
     display: flex;
@@ -98,7 +115,6 @@ button {
     color: white;
     width: 155px;
     margin-left: 0.5em;
-    border-radius: 5px;
     margin-right: 0.75em;
 }
 .button-step:hover {
@@ -107,6 +123,8 @@ button {
 .param-buttons {
     background-color: #f7f7f7;
     margin-top: 1em;
+    border-color: #d6d6d6;
+    border-width: 1.5px;
 }
 .param-buttons:hover {
     background-color: #EE2c2c;
@@ -185,9 +203,45 @@ input[type="range"]::-moz-range-thumb {
 /*Graph*/
 svg {
     width: 100%;
-    height: 100%;
+    height: 96%;
 }
 /*random*/
 #test {
     margin-left: 155px;
+}
+.dot {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    margin-right: 8px;
+    margin-top: 2px;
+}
+#sus-dot {
+    background-color: #A4D3EE;
+}
+#inf-dot {
+    background-color: #EE2c2c;
+}
+#rec-dot {
+    background-color: #8fbc8f;
+}
+#info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 60%;
+    border-width:1.5px;
+    border-style:solid;
+    border-color:#d32727;
+    background-color: #EE2c2c;
+    border-radius: 8px;
+}
+#info-icon {
+    color: white;
+    margin-right: 0.1em;
+}
+#infotext {
+    color: white;
 }
