@@ -96,6 +96,10 @@ label {
 #emptiness-right{
     width: 30%;
 }
+#emptiness-left{
+    display: none;
+    width: 30%;
+}
 .left-row {
     justify-content: left;
     width: 30%;

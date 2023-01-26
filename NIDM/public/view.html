@@ -38,7 +38,7 @@
                         <span>hoch</span>
                     </div>
                     <!--<span id="risk">0.5</span>-->
-                    <button class="param-buttons" onclick="timestep=-1; get(); updateTimestep()">Neue Simulation starten</button>
+                    <button class="param-buttons" onclick="timestep=-1; get(); updateTimestep(), show_infotext()">Neue Simulation starten</button>
                     <label>Ihr Bedürfnis nach Kontakten</label>
                     <input type="range" class="slider" id="alpha-slider" value="0.75" min="0" max="1" step="0.1" onchange="changeVar(this.value, 'alpha')"> <!--updateTextInput(this.value, 'alpha');-->
                     <div class="row">
@@ -92,6 +92,7 @@
                         <span id="timestep-label">Zeitschritte:</span>
                         <span id="timestep">0</span>
                     </div>
+                    <span id="emptiness-left"></span>
                     <div id="info">
                         <span id="info-icon">&#x1F6C8;</span> <!--alternativ: &#9432; &#8505;-->
                         <span id="infotext">Klicke eine Person an, um sie zu infizieren</span>

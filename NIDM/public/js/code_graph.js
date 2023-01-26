@@ -248,3 +248,17 @@ function updateTimestep() {
     timestep += 1;
     document.getElementById('timestep').textContent = timestep; 
 }
+function show_infotext() {
+    var info = document.getElementById("info");
+    if (info.style.display === "none") {
+      info.style.display = "flex";
+      document.getElementById('emptiness-left').style.display = "none";
+    }
+} 
+function hide_infotext() { // woooooohin?
+    var info = document.getElementById("info");
+    if (info.style.display === "flex") {
+        info.style.display = "none";
+        document.getElementById('emptiness-left').style.display = "block";
+    }
+}
