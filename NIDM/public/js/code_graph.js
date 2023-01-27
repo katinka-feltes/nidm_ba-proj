@@ -10,7 +10,7 @@ var link, node; // svg objects
 var simulation = d3.forceSimulation();
 
 var timestep = 0;
-var susceptible = 20;
+var susceptible = 0;
 var infected = 0;
 var recovered = 0;
 
@@ -138,6 +138,11 @@ function update(data) {
                 .on("drag", dragged)
                 .on("end", dragended))
             .on("dblclick",function(d){ //on double click 
+                susceptible=0; 
+                infected=0; 
+                recovered=0;
+                document.getElementById('info').style.display = "none";
+                document.getElementById('emptiness-left').style.display = "block";
                 console.log("dbclick agent" + d.id);
                 if (d.health_status == "S"){
                     d.health_status = "I";
@@ -149,6 +154,9 @@ function update(data) {
         .transition()
         .duration(1000) 
         .style("fill", function(d){ return color(d.health_status)});
+        document.getElementById('susceptible').textContent = susceptible;
+        document.getElementById('infected').textContent = infected;
+        document.getElementById('recovered').textContent = recovered;
     
     node = svg.select(".nodes").selectAll(".node");
     
@@ -161,9 +169,18 @@ function update(data) {
 }    
 
 function color(status){
-    if (status == "S") return "#A4D3EE";
-    else if (status == "I") return "#EE2c2c";
-    else return "#8fbc8f" //R
+    if (status == "S") {
+        susceptible += 1;
+        return "#A4D3EE";
+    }
+    else if (status == "I") {
+        infected += 1;
+        return "#EE2c2c";
+    }
+    else {
+        recovered += 1;
+        return "#8fbc8f" //R
+    }
 }
 
 //Dragn Drop
@@ -231,6 +248,9 @@ function play(){
         .attr("onClick", "pause()");
 
     interval = window.setInterval(() => {
+        susceptible = 0; 
+        infected = 0; 
+        recovered = 0;
         updateTimestep();
         post("step");
         console.log("Timeout: step")
@@ -253,12 +273,5 @@ function show_infotext() {
     if (info.style.display === "none") {
       info.style.display = "flex";
       document.getElementById('emptiness-left').style.display = "none";
-    }
-} 
-function hide_infotext() { // woooooohin?
-    var info = document.getElementById("info");
-    if (info.style.display === "flex") {
-        info.style.display = "none";
-        document.getElementById('emptiness-left').style.display = "block";
     }
 }
