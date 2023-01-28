@@ -70,15 +70,16 @@ function initializeSimulation() {
             .distance(100)                                      // and this the list of links
         )
         .force("charge", d3.forceManyBody()
-            .strength(-40)                                     // This adds repulsion between nodes. Play with the -400 for the repulsion strength
+            .strength(-10)                                     // This adds repulsion between nodes. Play with the -400 for the repulsion strength
             .distanceMin(30)
-            .distanceMax(200)
+            .distanceMax(100)
         )        
         .force("center", d3.forceCenter(width / 2, height / 2))     // This force attracts nodes to the center of the svg area
-        .force('collision', d3.forceCollide().radius(function(d) {
-            return d.radius
-          }))
-        .on("tick", ticked);
+        .force("collide", d3.forceCollide().radius(11))
+        .on("tick", ticked)
+        .alphaMin(0.01)
+        .alphaDecay(0.0001)
+        .velocityDecay(0.3);
 }
 
 // update the display positions after each simulation tick

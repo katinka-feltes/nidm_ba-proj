@@ -260,17 +260,17 @@ img {
     display: flex;
     flex-direction: row;
     align-content: center;
-    width: 40%;
+    width: 33%;
     height: 80%;
     background-color: #EE2c2c;
     opacity: 80%;
     border-radius: 8px;
+    padding-left: 10px;
 }
 #info-icon {
     display: flex;
     justify-content: center;
     color: white;
-    margin-right: 0.1em;
 }
 #infotext {
     display: flex;
