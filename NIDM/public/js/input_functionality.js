@@ -29,3 +29,12 @@ function reset() {
     document.getElementById('gamma-slider').value = 0.5;
     document.getElementById('gamma').textContent = '50%';
 }
+
+function show_info() {
+    var info = document.getElementById('risk-info');
+    if(info.style.display === "none") {
+        info.style.display = "block";
+    } else {
+        info.style.display = "none";
+    }
+}

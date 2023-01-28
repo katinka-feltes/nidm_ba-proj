@@ -137,14 +137,14 @@ function update(data) {
                 .on("start", dragstarted)
                 .on("drag", dragged)
                 .on("end", dragended))
-            .on("dblclick",function(d){ //on double click 
-                susceptible=0; 
-                infected=0; 
-                recovered=0;
+            .on("dblclick",function(d){ //on double click
                 document.getElementById('info').style.display = "none";
                 document.getElementById('emptiness-left').style.display = "block";
                 console.log("dbclick agent" + d.id);
                 if (d.health_status == "S"){
+                    susceptible=0; 
+                    infected=0; 
+                    recovered=0;
                     d.health_status = "I";
                     put("{\"infect\" : "+ d.id +"}"); //`{"infect": ` + d.id + `}`);
                     update(graph);

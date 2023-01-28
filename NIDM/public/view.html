@@ -30,7 +30,11 @@
                         <span id="agents-amount">20</span>
                     </div>
                     <input type="range" class="slider" id="agent-slider" value="20" min="2" max="100" onchange="updateTextInput(this.value, 'agents-amount'); updateMaxValue(this.value)">
-                    <label>Ihre Risikowahrnehmung</label>
+                    <div id="risk-row">
+                        <label>Ihre Risikowahrnehmung</label> 
+                        <button id="info-button" onclick="show_info()">&#x1F6C8;</button>
+                        <span id="risk-info">Wie stark die Krankheit als gefährlich wahrgenommen wird</span>
+                    </div>
                     <input type="range" class="slider" id="risk-slider" value="0.5" min="0" max="2" step="0.1"> <!--onchange="updateTextInput(this.value, 'risk')"-->
                     <div class="row">
                         <span>niedrig</span>
@@ -81,7 +85,7 @@
                         <span id="gamma">50%</span>
                     </div>
                     <input type="range" class="slider" id="gamma-slider" value="0.5" min="0" max="1" step="0.1" onchange="updateTextInput(this.value, 'gamma'); changeVar(this.value, 'gamma')">
-                    <button class="param-buttons" onclick="reset()">Zurück zu Ausgangs-Werten</button>
+                    <button class="param-buttons" onclick="reset()">Zurück zu den Ausgangswerten</button>
                 </div>
             </div>
             <div class="col col-graph">
@@ -95,7 +99,7 @@
                     <span id="emptiness-left"></span>
                     <div id="info">
                         <span id="info-icon">&#x1F6C8;</span> <!--alternativ: &#9432; &#8505;-->
-                        <span id="infotext">Klicke eine Person an, um sie zu infizieren</span>
+                        <span id="infotext">Klicke doppelt auf eine Person, um sie zu infizieren</span>
                     </div>
                     <span id="emptiness-right"></span>
                     <div id="health-status">
