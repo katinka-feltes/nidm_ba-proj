@@ -13,10 +13,9 @@
 
 <body>
     <!-- Header -->
-    <header>
-        <div>
-            <h1>Networking During Infectious Diseases Model</h1>
-        </div>
+    <header class="second-row">
+        <img src="/css/network.png" alt="Netzwerk">
+        <h1>Networking During Infectious Diseases Model</h1>
     </header>
 
     <!-- Main -->
@@ -31,9 +30,11 @@
                     </div>
                     <input type="range" class="slider" id="agent-slider" value="20" min="2" max="100" onchange="updateTextInput(this.value, 'agents-amount'); updateMaxValue(this.value)">
                     <div id="risk-row">
-                        <label>Ihre Risikowahrnehmung</label> 
-                        <button id="info-button" onclick="show_info()">&#x1F6C8;</button>
-                        <span id="risk-info">Wie stark die Krankheit als gefährlich wahrgenommen wird</span>
+                        <label id="risk-label">Ihre Risikowahrnehmung</label> 
+                        <div id="info2">
+                            <button id="info-button" onclick="show_info()">&#x1F6C8;</button>
+                            <span id="risk-info">Wie stark die Krankheit als gefährlich wahrgenommen wird</span>
+                        </div>
                     </div>
                     <input type="range" class="slider" id="risk-slider" value="0.5" min="0" max="2" step="0.1"> <!--onchange="updateTextInput(this.value, 'risk')"-->
                     <div class="row">
@@ -52,7 +53,7 @@
                     </div>
                     <!--<span id="alpha">0.75</span>-->
                     <label>Wieviel Arbeit macht die Aufrechterhaltung von Kontakten?</label>
-                    <input type="range" class="slider" id="c2-slider" value="0.1" min="0" max="1" step="0.1" onchange="changeVar(this.value, 'c2')"> <!--updateTextInput(this.value, 'c2');-->
+                    <input type="range" class="slider" id="c2-slider" value="0.1" min="0" max="1" step="0.025" onchange="changeVar(this.value, 'c2')"> <!--updateTextInput(this.value, 'c2');-->
                     <div class="row">
                         <span>wenig</span>
                         <span></span><span></span><span></span><span></span><span></span><span></span><span></span>

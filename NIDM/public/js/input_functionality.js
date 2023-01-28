@@ -32,9 +32,9 @@ function reset() {
 
 function show_info() {
     var info = document.getElementById('risk-info');
-    if(info.style.display === "none") {
-        info.style.display = "block";
-    } else {
+    if(info.style.display === "block") {
         info.style.display = "none";
+    } else {
+        info.style.display = "block";
     }
 }

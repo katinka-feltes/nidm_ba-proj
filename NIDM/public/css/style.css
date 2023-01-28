@@ -53,6 +53,9 @@ h3 {
 label {
     margin-top: 1em;
 }
+#risk-label {
+    width: 43%;
+}
 #timestep-label {
     margin-left: 0.75em;
     margin-right: 0.1em;
@@ -108,7 +111,6 @@ label {
 #risk-row {
     display: flex;
     flex-direction: row;
-    align-items: center;
 }
 .left-row {
     justify-content: left;
@@ -228,6 +230,11 @@ svg {
     width: 100%;
     height: 100%;
 }
+/*Image*/
+img {
+    width: 5%;
+    margin-right: 15px;
+}
 /*random*/
 #test {
     margin-left: 155px;
@@ -252,36 +259,46 @@ svg {
 #info {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 33%;
+    align-content: center;
+    width: 40%;
     height: 80%;
     background-color: #EE2c2c;
     opacity: 80%;
     border-radius: 8px;
 }
 #info-icon {
+    display: flex;
+    justify-content: center;
     color: white;
     margin-right: 0.1em;
 }
 #infotext {
+    display: flex;
     color: white;
+    justify-content: center;
+    font-size: 16px;
+    letter-spacing: 0px;
+    width: 100%;
 }
 #info-button {
     margin-top: 12px;
-    margin-left: 0.25em;
 }
 #risk-info {
-    display: flex;
-    flex-direction: row;
+    display: none;
+    flex-direction: row;  
     margin-top: 12px;
     margin-left: 4px;
-    padding-left: 1%;
+    padding-left: 2%;
     padding-right: 1%;
     font-size: 11px;
-    width: 40%;
     background-color: #EE2c2c;
     opacity: 80%;
     color: white;
     border-radius: 8px;
+}
+#info2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    width: 57%;
 }
