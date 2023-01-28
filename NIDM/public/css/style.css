@@ -54,7 +54,7 @@ label {
     margin-top: 1em;
 }
 #risk-label {
-    width: 43%;
+    width: 42%;
 }
 #timestep-label {
     margin-left: 0.75em;
@@ -293,6 +293,7 @@ img {
     font-size: 11px;
     background-color: #EE2c2c;
     opacity: 80%;
+    width: 70%;
     color: white;
     border-radius: 8px;
 }
@@ -300,5 +301,5 @@ img {
     display: flex;
     flex-direction: row;
     justify-content: left;
-    width: 57%;
+    width: 58%;
 }

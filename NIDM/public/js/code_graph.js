@@ -70,7 +70,7 @@ function initializeSimulation() {
             .distance(100)                                      // and this the list of links
         )
         .force("charge", d3.forceManyBody()
-            .strength(-10)                                     // This adds repulsion between nodes. Play with the -400 for the repulsion strength
+            .strength(-20)                                     // This adds repulsion between nodes. Play with the -400 for the repulsion strength
             .distanceMin(30)
             .distanceMax(100)
         )        
