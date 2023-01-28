@@ -46,8 +46,8 @@ function initialize_model(; number_of_agents = 30, alpha = 0.5, c2 = 0.55, sigma
         :sigma => sigma,
         :gamma => gamma,
         :tau => tau, 
-        :number_of_agents => number_of_agents,
-        :r => r,
+        :number_of_agents => number_of_agents, # what for
+        :r => r,                               # unessecary as well 
         :phi => calc_phi(phi),
         :psi => 0.4,
         :xi => 0.2
@@ -192,7 +192,14 @@ function model_step!(model::ABM)
 end
 
 function set_property!(property_name::Symbol, value, model::ABM)
-    model.properties[property_name] = value
+    #number_of_agents adjusable? 
+    if property_name == :r
+        for agent in allagents(m)
+            agent.risk_perception = value
+        end
+    else
+        model.properties[property_name] = value
+    end
 end
 
 end

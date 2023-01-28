@@ -70,11 +70,14 @@ function initializeSimulation() {
             .distance(100)                                      // and this the list of links
         )
         .force("charge", d3.forceManyBody()
-            .strength(-200)                                     // This adds repulsion between nodes. Play with the -400 for the repulsion strength
+            .strength(-40)                                     // This adds repulsion between nodes. Play with the -400 for the repulsion strength
             .distanceMin(30)
             .distanceMax(200)
-        )         
+        )        
         .force("center", d3.forceCenter(width / 2, height / 2))     // This force attracts nodes to the center of the svg area
+        .force('collision', d3.forceCollide().radius(function(d) {
+            return d.radius
+          }))
         .on("tick", ticked);
 }
 
@@ -239,6 +242,18 @@ async function get(){
 //method calls from html
 function changeVar(value, name){
     put("{\""+name+"\" : "+ value +"}");
+}
+
+function newModel(){
+    var content = "{\"number_of_agents\" : "+ document.getElementById("agent-slider").value
+                + ",\"alpha\" : "+ document.getElementById("alpha-slider").value
+                + ",\"c2\" : "+ document.getElementById("c2-slider").value 
+                + ",\"sigma\" : "+ document.getElementById("sigma-slider").value 
+                + ",\"gamma\" : "+ document.getElementById("gamma-slider").value 
+                + ",\"tau\" : "+ document.getElementById("tau-slider").value
+                + ",\"r\" : "+ document.getElementById("risk-slider").value  
+                + ",\"phi\" : "+ document.getElementById("phi-slider").value +"}"
+    post(content)
 }
 
 let interval;

@@ -22,8 +22,19 @@ route("/data", method = POST) do
   if(rawpayload() == "step")
     print("step")
     Model.model_step!(m)
-    json(create_jsgraph(m))
+    return json(create_jsgraph(m))
   end
+
+  # else create a new model
+  dict = JSON.parse(rawpayload())
+  try 
+    global m = Model.initialize_model(number_of_agents = dict["number_of_agents"], alpha = dict["alpha"], c2 = dict["c2"], 
+                     sigma = dict["sigma"], gamma = dict["gamma"], tau = dict["tau"], r = dict["r"], phi = dict["phi"],)
+  catch
+    global m = Model.initialize_model()
+    println("Error while creating the model")
+  end
+  return json(create_jsgraph(m))
 end
 
 # PUT response from the server
@@ -33,6 +44,8 @@ route("/data", method = PUT) do
   agentToInfect = get(dict, "infect", false)
   agentToInfect != false && Model.infect!(m[agentToInfect]) == 'I' && return json("infected")
 
+
+  print(keys(dict))
   # else change the property
   for prop in keys(dict)
     Model.set_property!(Symbol(prop), dict[prop], m)
@@ -43,7 +56,7 @@ end
 
 # GET response is the current state of the model from SimulationsController
 route("/data", method = GET) do
-  global m = Model.initialize_model()
+  #global m = Model.initialize_model()
   json(create_jsgraph(m))
 end
 
