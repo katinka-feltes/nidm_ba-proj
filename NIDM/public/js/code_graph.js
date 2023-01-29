@@ -9,54 +9,15 @@ var graph, data1, data2;
 var link, node; // svg objects
 var simulation = d3.forceSimulation();
 
+// var timer; // timer = gut für kleine Simulationen
+
 var timestep = 0;
 var susceptible = 0;
 var infected = 0;
 var recovered = 0;
 
-// load the data
-d3.json("model.json", function(error, _graph) {
-if (error) throw error;
-data1 = _graph;
-graph = data1;
-initializeDisplay();
-initializeSimulation();
-});
-
-// preload the extra data
-d3.json("model_new.json", function(error, _graph) {
-    if (error) throw error;
-    data2 = _graph;
-});
-
-function initializeDisplay() {
-    update(graph)
-    /*
-    //add the links
-    link = svg.append("g")
-        .style("stroke", "#aaa")
-    .selectAll("line")
-        .data(graph.links)
-    .enter().append("line")
-
-    //add the nodes
-    node = svg.append("g")
-        .attr("class", "nodes")
-    .selectAll("nodes")
-        .data(graph.nodes)
-    .enter().append("circle")
-        .attr("r", 10)
-        .style("fill", function(d){ return color(d.health_status)})
-    .call(d3.drag() // call specific function when circle is dragged
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended));
-
-    // node tooltip
-    node.append("title")
-        .text(function(d) { return "Agent-ID: "+d.id+ "\nInfection Duration: " + d.days_infected 
-        + "\nRisikowahrnehmung: "+ d.risk_perception });*/
-}
+// load the first Model
+newModel()
 
 function initializeSimulation() {
     
@@ -70,16 +31,27 @@ function initializeSimulation() {
             .distance(100)                                      // and this the list of links
         )
         .force("charge", d3.forceManyBody()
-            .strength(-20)                                     // This adds repulsion between nodes. Play with the -400 for the repulsion strength
-            .distanceMin(30)
+            .strength(-30)                                     // This adds repulsion between nodes. Play with the -400 for the repulsion strength
+            .distanceMin(60)
             .distanceMax(100)
-        )        
+        )  
         .force("center", d3.forceCenter(width / 2, height / 2))     // This force attracts nodes to the center of the svg area
-        .force("collide", d3.forceCollide().radius(11))
+        .force("collide", d3.forceCollide().radius(15))
         .on("tick", ticked)
+        .force("boundary", forceBoundary(11,11,width-11, height-11)
+            .strength(0.001)
+        )
         .alphaMin(0.01)
-        .alphaDecay(0.0001)
-        .velocityDecay(0.3);
+        .alphaDecay(0)
+        .velocityDecay(0.4);
+}
+
+function fix_nodes() {
+    node.each(function(d){
+            d.fx = d.x;
+            d.fy = d.y;
+    });
+    console.log("fixed")
 }
 
 // update the display positions after each simulation tick
@@ -97,6 +69,8 @@ function ticked() {
 
 // Create a function that takes a dataset as input and update the plot:
 function update(data) {
+
+    // window.clearTimeout(timer); // timer = gut für kleine Simulationen
 
     graph = data;
 
@@ -158,18 +132,20 @@ function update(data) {
         .transition()
         .duration(1000) 
         .style("fill", function(d){ return color(d.health_status)});
-        document.getElementById('susceptible').textContent = susceptible;
-        document.getElementById('infected').textContent = infected;
-        document.getElementById('recovered').textContent = recovered;
+
+    document.getElementById('susceptible').textContent = susceptible;
+    document.getElementById('infected').textContent = infected;
+    document.getElementById('recovered').textContent = recovered;
     
     node = svg.select(".nodes").selectAll(".node");
     
     // node tooltip
     node.append("title")
-        .text(function(d) { return "Agent-ID: "+d.id+ "\nInfection Duration: " + d.days_infected 
-            + "\nRisikowahrnehmung: "+ d.risk_perception });
+        .text(function(d) { return d.id});
 
-    initializeSimulation()
+   
+    initializeSimulation();
+    // timer = window.setTimeout(fix_nodes, 3000); // timer = gut für kleine Simulationen
 }    
 
 function color(status){

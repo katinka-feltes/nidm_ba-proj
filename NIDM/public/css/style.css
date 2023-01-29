@@ -89,7 +89,7 @@ label {
     display: flex;
     flex-direction: row;
     justify-content: right;
-    width: 10%;;
+    width: 10%;
 }
 /*Rows*/
 .second-row {
@@ -102,11 +102,11 @@ label {
     height: 4%;
 }
 #emptiness-right{
-    width: 30%;
+    width: 32%;
 }
 #emptiness-left{
     display: none;
-    width: 27%;
+    width: 33%;
 }
 #risk-row {
     display: flex;
@@ -114,7 +114,7 @@ label {
 }
 .left-row {
     justify-content: left;
-    width: 30%;
+    width: 25%;
 }
 .row {
     display: flex;
@@ -236,9 +236,6 @@ img {
     margin-right: 15px;
 }
 /*random*/
-#test {
-    margin-left: 155px;
-}
 .dot {
     height: 20px;
     width: 20px;
