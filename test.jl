@@ -2,8 +2,8 @@ import Main.Model as Model
 using Agents
 
 model = Model.initialize_model()
-model = Model.initialize_model(number_of_agents = 50, α = 1, c2 = 0.1)
-model = Model.initialize_model(number_of_agents = 24, α = 0.75, c2 = 0.1, Φ = 10) # Nunners Werte
+model = Model.initialize_model(number_of_agents = 50, alpha = 1, c2 = 0.1)
+model = Model.initialize_model(number_of_agents = 24, alpha = 0.75, c2 = 0.1, phi = 10) # Nunners Werte
 
 Model.infect!(random_agent(model))
 
@@ -22,7 +22,7 @@ import JSON
 using Graphs
 
 import Main.Model as Model
-model = Model.initialize_model(number_of_agents = 10, α = 0.75, c2 = 0.1, Φ = 5)
+model = Model.initialize_model(number_of_agents = 10, alpha = 0.75, c2 = 0.1, phi = 5)
 Model.model_step!(model)
 Model.infect!(model.agents[5])
 

@@ -6,7 +6,7 @@ import JSON
 
 #route("/agents", SimulationsController.agents)
 
-m = Model.initialize_model(number_of_agents = 24, alpha = 0.75, c2 = 0.1, phi = 10)
+m = Model.initialize_model(number_of_agents = 20, alpha = 0.75, c2 = 0.1, phi = 10)
 
 route("/g") do 
   serve_static_file("graph.html") 
@@ -29,7 +29,7 @@ route("/data", method = POST) do
   dict = JSON.parse(rawpayload())
   try 
     global m = Model.initialize_model(number_of_agents = dict["number_of_agents"], alpha = dict["alpha"], c2 = dict["c2"], 
-                     sigma = dict["sigma"], gamma = dict["gamma"], tau = dict["tau"], r = dict["r"], phi = dict["phi"],)
+                     sigma = dict["sigma"], gamma = dict["gamma"], tau = dict["tau"], r = dict["r"], phi = dict["phi"], seed = rand(0:100))
   catch
     global m = Model.initialize_model()
     println("Error while creating the model")
