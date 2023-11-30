@@ -7,7 +7,7 @@ _basierend auf dem in in Java geschriebenen Modell von Hendrik Nunner: https://g
 3. Mit 'BACKSPACE' zurück zu julia
 4. routes.jl (im Ordner NIDM) ausführen
 
-### Gruppenmitglieder:
+## Gruppenmitglieder
 * Katinka Feltes
 * Pius Gutsche
 * Helen Kuswik
